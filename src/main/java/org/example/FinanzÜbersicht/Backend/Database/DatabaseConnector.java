@@ -43,7 +43,7 @@ public class DatabaseConnector {
             connection = DriverManager.getConnection(url, username, password);
             return connection;
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Connection to Database finances failed. \n" +  e.getMessage(), e.getCause());
+            throw new ConnectionFailedException("Connection to Database finances failed. \n", e.getCause());
         }
     }
 

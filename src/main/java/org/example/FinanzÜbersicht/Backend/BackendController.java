@@ -3,6 +3,7 @@ package org.example.FinanzÜbersicht.Backend;
 import org.example.FinanzÜbersicht.Backend.Database.DatabaseConnector;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
 import org.example.FinanzÜbersicht.Backend.Exceptions.ConnectionFailedException;
+import org.example.FinanzÜbersicht.Backend.Security.SHA256;
 import org.example.FinanzÜbersicht.Backend.Service.UserService;
 
 import java.sql.Connection;
@@ -25,14 +26,14 @@ public class BackendController {
      */
     public BackendController() {
         // initialize database connection.
-        Connection databaseConnection = init();
+        Connection databaseConnection = initDatabase();
 
         // avoid NullPointerException.
         if (databaseConnection == null) {
             return;
         }
         // initialize logic for the user.
-        UserService userService = new UserService(databaseConnection);
+        UserService userService = new UserService(databaseConnection, new SHA256());
         List<UserEntity> entities = userService.select();
 
         for (UserEntity userEntity : entities) {
@@ -48,10 +49,11 @@ public class BackendController {
      * </p>
      * @return a {@link java.sql.Connection} or null.
      */
-    private Connection init() {
+    private Connection initDatabase() {
         try {
             return new DatabaseConnector().connect();
         } catch (ConnectionFailedException e) {
+            System.err.printf("Database initialization failed%n%s%n%s%n",e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return null;
         }

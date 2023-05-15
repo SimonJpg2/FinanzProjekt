@@ -2,6 +2,7 @@ package org.example.FinanzÜbersicht.Backend.Service;
 
 import org.example.FinanzÜbersicht.Backend.Database.User;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
+import org.example.FinanzÜbersicht.Backend.Security.SHA256;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,14 +23,16 @@ import java.util.List;
  */
 public class UserService implements User {
     private final Connection connection;
+    private final SHA256 sha256;
     private ResultSet resultSet;
 
     /**
      * Constructor UserService.
      * @param connection {@link java.sql.Connection} to database.
      */
-    public UserService(Connection connection) {
+    public UserService(Connection connection, SHA256 sha256) {
         this.connection = connection;
+        this.sha256 = sha256;
     }
 
     /**
@@ -59,7 +62,7 @@ public class UserService implements User {
             resultSet.close();
             return entities;
         } catch (SQLException e) {
-            System.err.printf("SQL Query failed:%n%s%n", e.getMessage());
+            System.err.printf("SQL Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             resultSet = null;
             return new ArrayList<>();
@@ -91,7 +94,7 @@ public class UserService implements User {
             resultSet.close();
             return userEntity;
         } catch (SQLException e) {
-            System.err.printf("SelectById Query failed:%n%s%n", e.getMessage());
+            System.err.printf("SelectById Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             resultSet = null;
             return new UserEntity();
@@ -109,16 +112,15 @@ public class UserService implements User {
     @Override
     public boolean create(UserEntity userEntity) {
         // TODO: Check for illegal chars
-        // TODO: Hash password before insertion
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO User (username, email, password) VALUES (?, ?, ?)");
             statement.setString(1, userEntity.getUsername());
-            statement.setString(2, userEntity.getEmail());
-            statement.setString(3, userEntity.getPassword());
+            statement.setString(2, sha256.hash(userEntity.getEmail()));
+            statement.setString(3, sha256.hash(userEntity.getPassword()));
             statement.close();
             return true;
-        } catch (SQLException e) {
-            System.err.printf("Create user statement failed:%n%s%n", e.getMessage());
+        } catch (SQLException | SecurityException e) {
+            System.err.printf("Create user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }
@@ -136,18 +138,17 @@ public class UserService implements User {
     @Override
     public boolean update(int id, UserEntity userEntity) {
         // TODO: Check for illegal chars
-        // TODO: Hash password before insertion
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE User SET username = ? email = ? password = ? WHERE id = ?");
             statement.setString(1, userEntity.getUsername());
-            statement.setString(2, userEntity.getEmail());
-            statement.setString(3, userEntity.getPassword());
+            statement.setString(2, sha256.hash(userEntity.getEmail()));
+            statement.setString(3, sha256.hash(userEntity.getPassword()));
             statement.setInt(4, id);
             boolean success = statement.executeUpdate() > 0;
             statement.close();
             return success;
-        } catch (SQLException e) {
-            System.err.printf("Update user statement failed:%n%s%n", e.getMessage());
+        } catch (SQLException | SecurityException e) {
+            System.err.printf("Update user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }
@@ -170,7 +171,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException e) {
-            System.err.printf("Delete user statement failed:%n%s%n", e.getMessage());
+            System.err.printf("Delete user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }
