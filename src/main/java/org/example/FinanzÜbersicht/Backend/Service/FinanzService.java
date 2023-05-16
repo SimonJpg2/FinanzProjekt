@@ -68,7 +68,6 @@ public class FinanzService implements Finances {
     @Override
     public boolean create(FinanzEntity finanzEntity) {
         // TODO: Check for illegal chars
-        // TODO: Hash password before insertion
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO Finanzen (value) VALUES (?)");
             statement.setDouble(1, finanzEntity.getValue());
@@ -84,7 +83,6 @@ public class FinanzService implements Finances {
     @Override
     public boolean update(int id, FinanzEntity finanzEntity) {
         // TODO: Check for illegal chars
-        // TODO: Hash password before insertion
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE Finanzen SET vale = ? WHERE id = ?");
             statement.setDouble(1, finanzEntity.getValue());

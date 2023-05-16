@@ -4,6 +4,7 @@ import org.example.FinanzÜbersicht.Backend.Database.DatabaseConnector;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
 import org.example.FinanzÜbersicht.Backend.Exceptions.ConnectionFailedException;
 import org.example.FinanzÜbersicht.Backend.Security.SHA256;
+import org.example.FinanzÜbersicht.Backend.Service.FinanzService;
 import org.example.FinanzÜbersicht.Backend.Service.UserService;
 
 import java.sql.Connection;
@@ -18,10 +19,13 @@ import java.util.List;
  * @version 1.0
  */
 public class BackendController {
+    private final UserService userService;
+    private final FinanzService finanzService;
+
     /**
      * Constructor BackendController.
      * <p>
-     *     Prepares backend of the application.
+     *     Initializes the backend of the application.
      * </p>
      */
     public BackendController() {
@@ -30,10 +34,14 @@ public class BackendController {
 
         // avoid NullPointerException.
         if (databaseConnection == null) {
+            userService = null;
+            finanzService = null;
             return;
         }
-        // initialize logic for the user.
-        UserService userService = new UserService(databaseConnection, new SHA256());
+        // initialize the services.
+        userService = new UserService(databaseConnection, new SHA256());
+        finanzService = new FinanzService(databaseConnection);
+
         List<UserEntity> entities = userService.select();
 
         for (UserEntity userEntity : entities) {
@@ -57,5 +65,21 @@ public class BackendController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Method getUserService.
+     * @return {@link org.example.FinanzÜbersicht.Backend.Service.UserService} or null
+     */
+    public UserService getUserService() {
+        return userService;
+    }
+
+    /**
+     * Method getFinanzService.
+     * @return {@link org.example.FinanzÜbersicht.Backend.Service.FinanzService} or null
+     */
+    public FinanzService getFinanzService() {
+        return finanzService;
     }
 }
