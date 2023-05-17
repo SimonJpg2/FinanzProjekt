@@ -1,14 +1,14 @@
 package org.example.FinanzÜbersicht.Backend;
 
 import org.example.FinanzÜbersicht.Backend.Database.DatabaseConnector;
-import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
+import org.example.FinanzÜbersicht.Backend.Database.Finances;
+import org.example.FinanzÜbersicht.Backend.Database.User;
 import org.example.FinanzÜbersicht.Backend.Exceptions.ConnectionFailedException;
 import org.example.FinanzÜbersicht.Backend.Security.SHA256;
 import org.example.FinanzÜbersicht.Backend.Service.FinanzService;
 import org.example.FinanzÜbersicht.Backend.Service.UserService;
 
 import java.sql.Connection;
-import java.util.List;
 
 /**
  * Class BackendController.
@@ -19,8 +19,8 @@ import java.util.List;
  * @version 1.0
  */
 public class BackendController {
-    private final UserService userService;
-    private final FinanzService finanzService;
+    private final User userService;
+    private final Finances finanzService;
 
     /**
      * Constructor BackendController.
@@ -41,12 +41,6 @@ public class BackendController {
         // initialize the services.
         userService = new UserService(databaseConnection, new SHA256());
         finanzService = new FinanzService(databaseConnection);
-
-        List<UserEntity> entities = userService.select();
-
-        for (UserEntity userEntity : entities) {
-            System.out.println(userEntity.getUsername());
-        }
     }
 
     /**
@@ -71,7 +65,7 @@ public class BackendController {
      * Method getUserService.
      * @return {@link org.example.FinanzÜbersicht.Backend.Service.UserService} or null
      */
-    public UserService getUserService() {
+    public User getUserService() {
         return userService;
     }
 
@@ -79,7 +73,7 @@ public class BackendController {
      * Method getFinanzService.
      * @return {@link org.example.FinanzÜbersicht.Backend.Service.FinanzService} or null
      */
-    public FinanzService getFinanzService() {
+    public Finances getFinanzService() {
         return finanzService;
     }
 }
