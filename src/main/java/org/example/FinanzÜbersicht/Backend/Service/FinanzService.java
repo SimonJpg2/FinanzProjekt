@@ -3,10 +3,7 @@ package org.example.FinanzÜbersicht.Backend.Service;
 import org.example.FinanzÜbersicht.Backend.Database.Finances;
 import org.example.FinanzÜbersicht.Backend.Entity.FinanzEntity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +25,8 @@ public class FinanzService implements Finances {
                 entities.add(
                         new FinanzEntity(
                                 resultSet.getInt(1),
-                                resultSet.getDouble(2)
+                                resultSet.getDate(2),
+                                resultSet.getDouble(3)
                         )
                 );
             }
@@ -52,7 +50,8 @@ public class FinanzService implements Finances {
             resultSet.next();
             FinanzEntity finanzEntity = new FinanzEntity(
                     resultSet.getInt(1),
-                    resultSet.getDouble(2)
+                    resultSet.getDate(2),
+                    resultSet.getDouble(3)
             );
             statement.close();
             resultSet.close();
@@ -69,10 +68,12 @@ public class FinanzService implements Finances {
     public boolean create(FinanzEntity finanzEntity) {
         // TODO: Check for illegal chars
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Finanzen (value) VALUES (?)");
-            statement.setDouble(1, finanzEntity.getValue());
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Finanzen (date, value) VALUES (?, ?)");
+            statement.setDate(1 , finanzEntity.getDate());
+            statement.setDouble(2, finanzEntity.getValue());
+            boolean success = statement.executeUpdate() > 0;
             statement.close();
-            return true;
+            return success;
         } catch (SQLException e) {
             System.err.printf("Create finanz statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
@@ -84,9 +85,10 @@ public class FinanzService implements Finances {
     public boolean update(int id, FinanzEntity finanzEntity) {
         // TODO: Check for illegal chars
         try {
-            PreparedStatement statement = connection.prepareStatement("UPDATE Finanzen SET vale = ? WHERE id = ?");
-            statement.setDouble(1, finanzEntity.getValue());
-            statement.setInt(2, id);
+            PreparedStatement statement = connection.prepareStatement("UPDATE Finanzen SET date = ?, value = ? WHERE id = ?");
+            statement.setDate(1, finanzEntity.getDate());
+            statement.setDouble(2, finanzEntity.getValue());
+            statement.setInt(3, id);
             boolean success = statement.executeUpdate() > 0;
             statement.close();
             return success;

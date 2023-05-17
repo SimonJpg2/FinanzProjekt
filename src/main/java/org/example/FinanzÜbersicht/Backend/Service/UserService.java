@@ -117,8 +117,9 @@ public class UserService implements User {
             statement.setString(1, userEntity.getUsername());
             statement.setString(2, sha256.hash(userEntity.getEmail()));
             statement.setString(3, sha256.hash(userEntity.getPassword()));
+            boolean success = statement.executeUpdate() > 0;
             statement.close();
-            return true;
+            return success;
         } catch (SQLException | SecurityException e) {
             System.err.printf("Create user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
