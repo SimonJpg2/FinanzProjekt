@@ -3,6 +3,7 @@ package org.example.FinanzÜbersicht.Backend.Service;
 import org.example.FinanzÜbersicht.Backend.Database.User;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
 import org.example.FinanzÜbersicht.Backend.Security.SHA256;
+import org.example.FinanzÜbersicht.Backend.Exceptions.SecurityException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -64,7 +65,7 @@ public class UserService implements User {
             resultSet.close();
             return entities;
         } catch (SQLException e) {
-            System.err.printf("SQL Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) SQL Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             resultSet = null;
             return new ArrayList<>();
@@ -96,7 +97,7 @@ public class UserService implements User {
             resultSet.close();
             return userEntity;
         } catch (SQLException e) {
-            System.err.printf("SelectById Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) SelectById Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             resultSet = null;
             return new UserEntity();
@@ -130,7 +131,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException | SecurityException e) {
-            System.err.printf("Create user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Create user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }
@@ -165,7 +166,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException | SecurityException e) {
-            System.err.printf("Update user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Update user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }
@@ -188,7 +189,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException e) {
-            System.err.printf("Delete user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Delete user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }

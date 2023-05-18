@@ -3,7 +3,7 @@ package org.example.FinanzÜbersicht.Backend.Exceptions;
 /**
  * Class ConnectionFailedException.
  * <p>
- *     Custom Exception if connection to database failed.
+ *     Is thrown if connection to database failed.
  * </p>
  * @author Simon Balcke
  * @version 1.0
@@ -11,7 +11,6 @@ package org.example.FinanzÜbersicht.Backend.Exceptions;
  */
 
 public class ConnectionFailedException extends RuntimeException {
-
     public ConnectionFailedException(String message) {
         super(message);
     }

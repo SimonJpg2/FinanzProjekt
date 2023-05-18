@@ -50,7 +50,7 @@ public class FinanzService implements Finances {
             resultSet.close();
             return entities;
         } catch (SQLException e) {
-            System.err.printf("Select finanzen statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) Select finanzen statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             resultSet = null;
             return new ArrayList<>();
@@ -81,7 +81,7 @@ public class FinanzService implements Finances {
             resultSet.close();
             return finanzEntity;
         } catch (SQLException e) {
-            System.err.printf("SelectById finanzen statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) SelectById finanzen statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             resultSet = null;
             return new FinanzEntity();
@@ -106,7 +106,7 @@ public class FinanzService implements Finances {
             statement.close();
             return success;
         } catch (SQLException e) {
-            System.err.printf("Create finanz statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) Create finanz statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -132,7 +132,7 @@ public class FinanzService implements Finances {
             statement.close();
             return success;
         } catch (SQLException e) {
-            System.err.printf("Update finanz statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) Update finanz statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -155,7 +155,7 @@ public class FinanzService implements Finances {
             statement.close();
             return success;
         } catch (SQLException e) {
-            System.err.printf("Delete finanz statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) Delete finanz statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }
