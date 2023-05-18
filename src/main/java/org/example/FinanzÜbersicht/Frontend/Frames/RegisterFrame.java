@@ -37,11 +37,12 @@ public class RegisterFrame extends JFrame {
      * Creates new form LoginFrame
      */
     public RegisterFrame() {
+        System.out.println("(~) Initializing components for registration frame.");
         initComponents();
+        System.out.println("(+) Registration frame components initialized.");
     }
 
     private void initComponents() {
-
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();

@@ -36,7 +36,9 @@ public class LoginFrame extends JFrame {
      */
     public LoginFrame(RegisterFrame registerFrame) {
         this.registerFrame = registerFrame;
+        System.out.println("(~) Initializing components for login frame.");
         initComponents();
+        System.out.println("(+) Login frame components initialized.");
     }
 
     private void initComponents() {

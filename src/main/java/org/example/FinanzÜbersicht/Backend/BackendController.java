@@ -36,11 +36,14 @@ public class BackendController {
         if (databaseConnection == null) {
             userService = null;
             finanzService = null;
+            System.err.println("(!) Services not initialized.");
             return;
         }
+        System.out.println("(+) Connection to database established.\n(~) Initializing services.");
         // initialize the services.
         userService = new UserService(databaseConnection, new SHA256());
         finanzService = new FinanzService(databaseConnection);
+        System.out.println("(+) Services initialized successfully.");
     }
 
     /**
@@ -55,7 +58,7 @@ public class BackendController {
         try {
             return new DatabaseConnector().connect();
         } catch (ConnectionFailedException e) {
-            System.err.printf("Database initialization failed%n%s%n%s%n",e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Database initialization failed%n%s%n%s%n",e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return null;
         }

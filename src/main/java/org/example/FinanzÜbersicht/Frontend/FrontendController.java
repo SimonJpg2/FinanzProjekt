@@ -17,10 +17,12 @@ public class FrontendController {
 
     public FrontendController(BackendController backendController) {
         this.backendController = backendController;
+        System.out.println("(~) Initializing JFrames.");
 
         // Frame initialisation
         RegisterFrame registerFrame = new RegisterFrame();
         LoginFrame loginFrame = new LoginFrame(registerFrame);
+        System.out.println("(+) JFrames initialized successfully.");
 
         registerFrame.setLoginFrame(loginFrame);
         registerFrame.setVisible(true);
