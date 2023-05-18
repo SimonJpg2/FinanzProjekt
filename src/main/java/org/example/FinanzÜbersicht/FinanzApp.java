@@ -1,6 +1,7 @@
 package org.example.FinanzÜbersicht;
 
 import org.example.FinanzÜbersicht.Backend.BackendController;
+import org.example.FinanzÜbersicht.Frontend.FrontendController;
 
 /**
  * Class FinanzApp.
@@ -23,6 +24,6 @@ public class FinanzApp {
      * @param args unused
      */
     public static void main(String[] args) {
-        new BackendController();
+        new FrontendController(new BackendController());
     }
 }
