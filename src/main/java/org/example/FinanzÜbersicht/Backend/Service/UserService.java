@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.FinanzÜbersicht.Backend.Security.BadCharacters.*;
+
 /**
  * Class UserService.
  *
@@ -111,12 +113,19 @@ public class UserService implements User {
      */
     @Override
     public boolean create(UserEntity userEntity) {
-        // TODO: Check for illegal chars
+        String username = userEntity.getUsername();
+        String email = userEntity.getEmail();
+        String password = userEntity.getPassword();
         try {
+            for (String s : FORBIDDEN) {
+                if (username.contains(s) || email.contains(s) || password.contains(s)) {
+                    throw new SecurityException("Forbidden char entered by user, could lead to SQL-Injection.");
+                }
+            }
             PreparedStatement statement = connection.prepareStatement("INSERT INTO User (username, email, password) VALUES (?, ?, ?)");
-            statement.setString(1, userEntity.getUsername());
-            statement.setString(2, sha256.hash(userEntity.getEmail()));
-            statement.setString(3, sha256.hash(userEntity.getPassword()));
+            statement.setString(1, username);
+            statement.setString(2, sha256.hash(email));
+            statement.setString(3, sha256.hash(password));
             boolean success = statement.executeUpdate() > 0;
             statement.close();
             return success;
@@ -138,12 +147,19 @@ public class UserService implements User {
      */
     @Override
     public boolean update(int id, UserEntity userEntity) {
-        // TODO: Check for illegal chars
+        String username = userEntity.getUsername();
+        String email = userEntity.getEmail();
+        String password = userEntity.getPassword();
         try {
+            for (String s : FORBIDDEN) {
+                if (username.contains(s) || email.contains(s) || password.contains(s)) {
+                    throw new SecurityException("Forbidden char entered by user, could lead to SQL-Injection.");
+                }
+            }
             PreparedStatement statement = connection.prepareStatement("UPDATE User SET username = ? email = ? password = ? WHERE id = ?");
-            statement.setString(1, userEntity.getUsername());
-            statement.setString(2, sha256.hash(userEntity.getEmail()));
-            statement.setString(3, sha256.hash(userEntity.getPassword()));
+            statement.setString(1, username);
+            statement.setString(2, sha256.hash(email));
+            statement.setString(3, sha256.hash(password));
             statement.setInt(4, id);
             boolean success = statement.executeUpdate() > 0;
             statement.close();
