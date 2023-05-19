@@ -58,7 +58,7 @@ public class BackendController {
         try {
             return new DatabaseConnector().connect();
         } catch (ConnectionFailedException e) {
-            System.err.printf("(!) Database initialization failed%n%s%n%s%n",e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Database initialization failed%n%s", e.getMessage());
             e.printStackTrace();
             return null;
         }
