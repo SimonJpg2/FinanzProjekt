@@ -1,6 +1,7 @@
 package org.example.FinanzÜbersicht.Frontend.Frames;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -80,6 +81,7 @@ public class LoginFrame extends JFrame {
         jButton1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButton1.setText("Sign up");
         jButton1.setToolTipText("Wechsel zum Registrieren");
+        jButton1.setFocusPainted(false);
         jButton1.addActionListener(this::signUp);
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -88,6 +90,8 @@ public class LoginFrame extends JFrame {
         jButton3.setBackground(new java.awt.Color(41, 129, 186));
         jButton3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jButton3.setText("Send Email");
+        jButton3.setToolTipText("Klicken, um die Daten zurückzusetzen.");
+        jButton3.setFocusPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,9 +153,12 @@ public class LoginFrame extends JFrame {
 
         jPasswordField1.setToolTipText("Dein Passwort");
 
+        jButton2.setBackground(new Color(41, 129, 186));
         jButton2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jButton2.setText("Login");
         jButton2.setToolTipText("Zum Bestätigen drücken");
+        jButton2.setFocusPainted(false);
+        jButton2.setBorderPainted(false);
 
         jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);

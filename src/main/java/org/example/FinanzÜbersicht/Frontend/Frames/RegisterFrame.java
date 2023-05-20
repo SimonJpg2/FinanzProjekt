@@ -1,6 +1,7 @@
 package org.example.FinanzÜbersicht.Frontend.Frames;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -80,6 +81,7 @@ public class RegisterFrame extends JFrame {
         jButton1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jButton1.setText("Login");
         jButton1.setToolTipText("Wechsel zum Login");
+        jButton1.setFocusPainted(false);
         jButton1.addActionListener(this::signIn);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -135,9 +137,12 @@ public class RegisterFrame extends JFrame {
 
         jPasswordField2.setToolTipText("Wähle ein starkes Passwort");
 
+        jButton2.setBackground(new Color(41, 129, 186));
         jButton2.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jButton2.setText("Sign in");
         jButton2.setToolTipText("Zum Bestätigen drücken");
+        jButton2.setFocusPainted(false);
+        jButton2.setBorderPainted(false);
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("Passwort wiederholen");
