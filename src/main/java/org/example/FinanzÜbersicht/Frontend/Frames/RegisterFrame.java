@@ -67,7 +67,7 @@ public class RegisterFrame extends JFrame {
         jPanel1.setBackground(new java.awt.Color(41, 129, 186));
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel1.setText("Login Notenübersicht");
+        jLabel1.setText("Login Finanzübersicht");
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Du hast bereits einen Account?");

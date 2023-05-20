@@ -67,7 +67,7 @@ public class LoginFrame extends JFrame {
         jPanel1.setBackground(new java.awt.Color(41, 129, 186));
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
-        jLabel1.setText("Sign in Notenübersicht");
+        jLabel1.setText("Sign in Finanzübersicht");
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Du hast noch keinen Account?");
