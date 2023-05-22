@@ -123,7 +123,7 @@ public class UserService implements User {
                     throw new SecurityException("Forbidden char entered by user, could lead to SQL-Injection.");
                 }
             }
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO User (username, email, password) VALUES (?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO User (benutzer_name, email, passwort) VALUES (?, ?, ?)");
             statement.setString(1, username);
             statement.setString(2, sha256.hash(email));
             statement.setString(3, sha256.hash(password));
@@ -131,7 +131,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException | SecurityException e) {
-            System.err.printf("(!) Create user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Create user statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -157,7 +157,7 @@ public class UserService implements User {
                     throw new SecurityException("Forbidden char entered by user, could lead to SQL-Injection.");
                 }
             }
-            PreparedStatement statement = connection.prepareStatement("UPDATE User SET username = ? email = ? password = ? WHERE id = ?");
+            PreparedStatement statement = connection.prepareStatement("UPDATE User SET benutzer_name = ? email = ? passwort = ? WHERE id = ?");
             statement.setString(1, username);
             statement.setString(2, sha256.hash(email));
             statement.setString(3, sha256.hash(password));

@@ -1,6 +1,7 @@
 package org.example.FinanzÜbersicht;
 
 import org.example.FinanzÜbersicht.Backend.BackendController;
+import org.example.FinanzÜbersicht.Backend.Security.SHA256;
 import org.example.FinanzÜbersicht.Frontend.FrontendController;
 
 /**
@@ -50,6 +51,7 @@ public class FinanzApp {
         System.out.println(logo);
         System.out.println("\n\nThis application was created by Simon Balcke.\nSince 08.05.2023");
         System.out.println("-----------------------------------------------------------------------");
-        new FrontendController(new BackendController());
+        SHA256 sha256 = new SHA256();
+        new FrontendController(new BackendController(sha256), sha256);
     }
 }

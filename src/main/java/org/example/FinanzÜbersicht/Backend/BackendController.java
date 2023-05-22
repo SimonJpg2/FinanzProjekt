@@ -28,7 +28,7 @@ public class BackendController {
      *     Initializes the backend of the application.
      * </p>
      */
-    public BackendController() {
+    public BackendController(SHA256 sha256) {
         // initialize database connection.
         Connection databaseConnection = initDatabase();
 
@@ -41,7 +41,7 @@ public class BackendController {
         }
         System.out.println("(+) Connection to database established.\n(~) Initializing services.");
         // initialize the services.
-        userService = new UserService(databaseConnection, new SHA256());
+        userService = new UserService(databaseConnection, sha256);
         finanzService = new FinanzService(databaseConnection);
         System.out.println("(+) Services initialized successfully.");
     }

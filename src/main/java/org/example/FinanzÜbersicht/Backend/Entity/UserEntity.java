@@ -9,13 +9,19 @@ package org.example.FinanzÜbersicht.Backend.Entity;
  * @version 1.0
  */
 public class UserEntity {
-    private final int id;
+    private int id;
     private final String username;
     private final String email;
     private final String password;
 
     public UserEntity(int id, String username, String email, String password) {
         this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserEntity(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

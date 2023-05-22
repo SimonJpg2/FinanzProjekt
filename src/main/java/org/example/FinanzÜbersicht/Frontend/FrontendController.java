@@ -1,6 +1,7 @@
 package org.example.FinanzÜbersicht.Frontend;
 
 import org.example.FinanzÜbersicht.Backend.BackendController;
+import org.example.FinanzÜbersicht.Backend.Security.SHA256;
 import org.example.FinanzÜbersicht.Frontend.Frames.LoginFrame;
 import org.example.FinanzÜbersicht.Frontend.Frames.RegisterFrame;
 
@@ -13,17 +14,22 @@ import org.example.FinanzÜbersicht.Frontend.Frames.RegisterFrame;
  * @version 1.0
  */
 public class FrontendController {
-    private final BackendController backendController;
-
-    public FrontendController(BackendController backendController) {
-        this.backendController = backendController;
+    /**
+     * Constructor FrontendController.
+     * <p>
+     *     Initializes the frontend.
+     * </p>
+     * @param backendController an {@link org.example.FinanzÜbersicht.Backend.BackendController} instance.
+     */
+    public FrontendController(BackendController backendController, SHA256 sha256) {
         System.out.println("(~) Initializing JFrames.");
 
         // Frame initialisation
-        RegisterFrame registerFrame = new RegisterFrame();
-        LoginFrame loginFrame = new LoginFrame(registerFrame);
+        RegisterFrame registerFrame = new RegisterFrame(backendController);
+        LoginFrame loginFrame = new LoginFrame(registerFrame, backendController, sha256);
         System.out.println("(+) JFrames initialized successfully.");
 
+        // visibility logic
         registerFrame.setLoginFrame(loginFrame);
         registerFrame.setVisible(true);
         loginFrame.setVisible(false);
