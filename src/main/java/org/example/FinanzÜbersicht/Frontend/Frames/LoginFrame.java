@@ -5,6 +5,7 @@ import org.example.FinanzÜbersicht.Backend.Database.User;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
 import org.example.FinanzÜbersicht.Backend.Exceptions.SecurityException;
 import org.example.FinanzÜbersicht.Backend.Security.SHA256;
+import org.example.FinanzÜbersicht.Backend.Service.MailService;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -114,6 +115,7 @@ public class LoginFrame extends JFrame {
         jButton3.setText("Send Email");
         jButton3.setToolTipText("Klicken, um die Daten zurückzusetzen.");
         jButton3.setFocusPainted(false);
+        jButton3.addActionListener(this::sendMail);
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,6 +301,22 @@ public class LoginFrame extends JFrame {
             System.err.printf("(!) Login failed.%n%s%n", ex.getMessage());
             username.setText(ex.getMessage());
         }
+    }
+
+    /**
+     * Method sendMail.
+     * <p>
+     *     Method to send email with verification code.
+     * </p>
+     * @param e ActionEvent of JButton.
+     */
+    private void sendMail(ActionEvent e) {
+        if (backendController.getUserService() == null) {
+            System.err.println("(!) Initializing VerificationFrame failed because userService is null.");
+            return;
+        }
+        new VerificationFrame(backendController.getUserService(), sha256).setVisible(true);
+        System.out.println("(+) VerificationFrame initialized successfully.");
     }
 
     /**

@@ -21,5 +21,17 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
+        <!-- https://search.maven.org/artifact/javax.mail/javax.mail-api/1.6.2/jar -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail/1.6.0 -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
     </dependencies>
 </project>

@@ -19,8 +19,8 @@ import java.sql.Connection;
  * @version 1.0
  */
 public class BackendController {
-    private final User userService;
-    private final Finances finanzService;
+    private final UserService userService;
+    private final FinanzService finanzService;
 
     /**
      * Constructor BackendController.
@@ -68,7 +68,7 @@ public class BackendController {
      * Method getUserService.
      * @return {@link org.example.FinanzÜbersicht.Backend.Service.UserService} or null
      */
-    public User getUserService() {
+    public UserService getUserService() {
         return userService;
     }
 
@@ -76,7 +76,7 @@ public class BackendController {
      * Method getFinanzService.
      * @return {@link org.example.FinanzÜbersicht.Backend.Service.FinanzService} or null
      */
-    public Finances getFinanzService() {
+    public FinanzService getFinanzService() {
         return finanzService;
     }
 }
