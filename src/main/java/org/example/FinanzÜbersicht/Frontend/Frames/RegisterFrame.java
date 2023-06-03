@@ -49,7 +49,7 @@ public class RegisterFrame extends JFrame {
 
 
     /**
-     * Creates new form LoginFrame
+     * Creates new form RegisterFrame
      */
     public RegisterFrame(BackendController backendController) {
         this.backendController = backendController;

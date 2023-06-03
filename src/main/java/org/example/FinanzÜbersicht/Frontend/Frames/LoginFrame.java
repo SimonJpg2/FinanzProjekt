@@ -290,7 +290,9 @@ public class LoginFrame extends JFrame {
             String hashedPassword = existingUser.getPassword();
 
             if (usernameOfTextField.equals(existingUsername) && hashedPassword.equals(sha256.hash(password))) {
-                new MainFrame();
+                System.out.println("(~) Initializing MainFrame.");
+                new MainFrame().setVisible(true);
+                dispose();
                 return;
             }
             System.err.println("(!) Login failed because of wrong credentials");
@@ -311,6 +313,7 @@ public class LoginFrame extends JFrame {
      * @param e ActionEvent of JButton.
      */
     private void sendMail(ActionEvent e) {
+        System.out.println("(~) Initializing VerificationFrame.");
         if (backendController.getUserService() == null) {
             System.err.println("(!) Initializing VerificationFrame failed because userService is null.");
             return;

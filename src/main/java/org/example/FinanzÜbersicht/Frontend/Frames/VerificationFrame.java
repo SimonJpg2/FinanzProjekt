@@ -30,6 +30,7 @@ import static javax.swing.LayoutStyle.ComponentPlacement.*;
  * Class VerificationFrame.
  * <p>
  *     Class to verify authentication.
+ *     (The GUI has been created with Netbeans IDE.)
  * </p>
  * @author Simon Balcke
  * @version 1.0

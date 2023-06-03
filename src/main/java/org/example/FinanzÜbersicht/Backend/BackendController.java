@@ -47,7 +47,7 @@ public class BackendController {
     }
 
     /**
-     * Method init.
+     * Method initDatabase.
      * <p>
      *     Initializes connection to database.
      *     If connection fails, null is returned.
