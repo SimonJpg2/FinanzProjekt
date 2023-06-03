@@ -1,9 +1,16 @@
 package org.example.FinanzÜbersicht.Frontend.Frames;
 
+import org.example.FinanzÜbersicht.Backend.BackendController;
+import org.example.FinanzÜbersicht.Backend.Entity.FinanzEntity;
+import org.example.FinanzÜbersicht.Backend.Service.FinanzService;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import static java.awt.Font.*;
 import static java.lang.Short.*;
@@ -11,6 +18,16 @@ import static javax.swing.GroupLayout.*;
 import static javax.swing.GroupLayout.Alignment.*;
 import static javax.swing.LayoutStyle.ComponentPlacement.*;
 
+/**
+ * Class MainFrame.
+ * <p>
+ *     JFrame to display finance data.
+ *     (The GUI has been created with Netbeans IDE.)
+ * </p>
+ * @author Simon Balcke
+ * @version 1.0
+ * @see javax.swing.JFrame
+ */
 public class MainFrame extends JFrame {
     private JButton jButton1;
     private JButton jButton2;
@@ -29,11 +46,25 @@ public class MainFrame extends JFrame {
     private JTextField jTextField2;
     private JTextField jTextField3;
     private JTextField jTextField4;
-    public MainFrame() {
+    private DefaultTableModel tableModel;
+    private final BackendController backendController;
+
+    /**
+     * Creates new form MainFrame
+     */
+    public MainFrame(BackendController backendController) {
+        this.backendController = backendController;
         initComponents();
+        appendEntities();
         System.out.println("(+) MainFrame initialized successfully.");
     }
 
+    /**
+     * Method initComponents.
+     * <p>
+     *     Initializes components for MainFrame.
+     * </p>
+     */
     private void initComponents() {
         jPanel1 = new JPanel();
         jLabel1 = new JLabel();
@@ -88,10 +119,6 @@ public class MainFrame extends JFrame {
         // Model properties for JTable.
         jTable1.setModel(new DefaultTableModel(
                 new Object [][] {
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null},
-                        {null, null, null, null}
                 },
                 new String [] {
                         "ID", "Datum", "Transaktionen", "Budget"
@@ -243,5 +270,48 @@ public class MainFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+
+    /**
+     * Method appendEntities.
+     * <p>
+     *     Fills JTable with data of the database.
+     * </p>
+     */
+    private void appendEntities() {
+        // avoid NullPointerException.
+        if (backendController.getFinanzService() == null) {
+            System.err.println("(!) Displaying data failed because finanzService is not initialized.");
+            return;
+        }
+
+        // get references for service and entities.
+        FinanzService service = backendController.getFinanzService();
+        List<FinanzEntity> entities = service.select();
+
+        // get table model and date formatter.
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+        for (int i = 0; i < entities.size(); i++) {
+            // add index 0 to avoid IndexOutOfBoundsException in for loop.
+            if (i == 0) {
+                tableModel.addRow(new Object[]{
+                        entities.get(i).getId(),
+                        simpleDateFormat.format(entities.get(i).getDate()),
+                        entities.get(i).getValue(),
+                        entities.get(i).getValue()
+                });
+                continue;
+            }
+
+            // fill JTable with data.
+            tableModel.addRow(new Object[]{
+                    entities.get(i).getId(),
+                    simpleDateFormat.format(entities.get(i).getDate()),
+                    entities.get(i).getValue(),
+                    entities.get(i - 1).getValue() + entities.get(i).getValue()
+            });
+        }
     }
 }

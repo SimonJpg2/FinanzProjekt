@@ -291,7 +291,7 @@ public class LoginFrame extends JFrame {
 
             if (usernameOfTextField.equals(existingUsername) && hashedPassword.equals(sha256.hash(password))) {
                 System.out.println("(~) Initializing MainFrame.");
-                new MainFrame().setVisible(true);
+                new MainFrame(backendController).setVisible(true);
                 dispose();
                 return;
             }
