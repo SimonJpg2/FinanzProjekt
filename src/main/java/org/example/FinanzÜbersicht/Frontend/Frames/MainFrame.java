@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 
+import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -124,10 +125,10 @@ public class MainFrame extends JFrame {
                         "ID", "Datum", "Transaktionen", "Budget"
                 }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class [] {
                     Integer.class, String.class, Double.class, Double.class
             };
-            boolean[] canEdit = new boolean [] {
+            final boolean[] canEdit = new boolean [] {
                     false, false, false, false
             };
 
@@ -159,6 +160,7 @@ public class MainFrame extends JFrame {
         jButton1.setForeground(new Color(255, 255, 255));
         jButton1.setText("Bestätigen");
         jButton1.setFocusPainted(false);
+        jButton1.addActionListener(this::addFinanzEntity);
 
         jLabel3.setFont(new Font("Arial", BOLD, 14)); // NOI18N
         jLabel3.setText("Transaktion bearbeiten");
@@ -177,6 +179,7 @@ public class MainFrame extends JFrame {
         jButton2.setForeground(new Color(255, 255, 255));
         jButton2.setText("Bestätigen");
         jButton2.setFocusPainted(false);
+        jButton2.addActionListener(this::updateFinanzEntity);
 
         jTextField4.setFont(new Font("Arial", PLAIN, 12)); // NOI18N
         jTextField4.setText("ID");
@@ -186,12 +189,14 @@ public class MainFrame extends JFrame {
         jButton3.setForeground(new Color(255, 255, 255));
         jButton3.setText("Bestätigen");
         jButton3.setFocusPainted(false);
+        jButton3.addActionListener(this::deleteFinanzEntity);
 
         jLabel5.setFont(new Font("Arial", BOLD, 14)); // NOI18N
         jLabel5.setText("Transaktionen sortieren");
 
         jComboBox1.setFont(new Font("Arial", PLAIN, 14)); // NOI18N
-        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new DefaultComboBoxModel<>(new String[] { "Alles", "Monat", "Heute"}));
+        jComboBox1.addActionListener(this::comboBoxItemChanged);
 
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -313,5 +318,37 @@ public class MainFrame extends JFrame {
                     entities.get(i - 1).getValue() + entities.get(i).getValue()
             });
         }
+    }
+
+    private void comboBoxItemChanged(ActionEvent e) {
+        if (e.getSource() != jComboBox1) {
+            return;
+        }
+        System.out.println("(+) Item of JComboBox changed");
+        // TODO: check wich item has been selected and call specified method.
+    }
+
+    private void addFinanzEntity(ActionEvent e) {
+        if (e.getSource() != jButton1) {
+            return;
+        }
+        System.out.println("(+) Entry added successfully.");
+        // TODO: implement logic to add entry to database and refill JTable.
+    }
+
+    private void updateFinanzEntity(ActionEvent e) {
+        if (e.getSource() != jButton2) {
+            return;
+        }
+        System.out.println("(+) Entry updated successfully.");
+        // TODO: implement logic to update entry of database and refill JTable.
+    }
+
+    private void deleteFinanzEntity(ActionEvent e) {
+        if (e.getSource() != jButton3) {
+            return;
+        }
+        System.out.println("(+) Entry deleted successfully.");
+        // TODO: implement logic to delete entry of database and refill JTable.
     }
 }
