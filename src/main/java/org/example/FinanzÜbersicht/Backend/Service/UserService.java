@@ -172,6 +172,16 @@ public class UserService implements User {
         }
     }
 
+    /**
+     * <p>
+     *      Sends statement to update an existing user.
+     * </p>
+     * @param id id of User to be updated.
+     * @param userEntity the new {@link org.example.FinanzÜbersicht.Backend.Entity.UserEntity}
+     * @return if succeeded
+     */
+
+    @Override
     public boolean updateById(int id, UserEntity userEntity) {
         String password = userEntity.getPassword();
         try {
