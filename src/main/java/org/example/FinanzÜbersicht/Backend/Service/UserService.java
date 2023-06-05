@@ -166,7 +166,28 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException | SecurityException e) {
-            System.err.printf("(!) Update user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) Update user statement failed:%n%s%n", e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateById(int id, UserEntity userEntity) {
+        String password = userEntity.getPassword();
+        try {
+            for (String s : FORBIDDEN) {
+                if (password.contains(s)) {
+                    throw new SecurityException("Forbidden char entered by user, could lead to SQL-Injection.");
+                }
+            }
+            PreparedStatement statement = connection.prepareStatement("UPDATE User SET passwort = ? WHERE id = ?");
+            statement.setString(1, sha256.hash(password));
+            statement.setInt(2, id);
+            boolean success = statement.executeUpdate() > 0;
+            statement.close();
+            return success;
+        } catch (SQLException | SecurityException e) {
+            System.err.printf("(!) Update user statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }

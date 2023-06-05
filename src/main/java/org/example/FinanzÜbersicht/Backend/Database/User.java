@@ -15,5 +15,6 @@ public interface User {
     UserEntity selectById(int id);
     boolean create(UserEntity userEntity);
     boolean update(int id, UserEntity userEntity);
+    boolean updateById(int id, UserEntity userEntity);
     boolean delete(int id);
 }

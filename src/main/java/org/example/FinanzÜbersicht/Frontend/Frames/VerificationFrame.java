@@ -244,7 +244,8 @@ public class VerificationFrame extends JFrame {
         // check if token is correct.
         if (jTextField2.getText().equals(token)) {
             token = "";
-            new ResetFrame(); // TODO complete ResetFrame initialisation.
+            System.out.println("(~) Initializing ResetFrame.");
+            new ResetFrame(userService).setVisible(true); // TODO complete ResetFrame initialisation.
             dispose();
         }
     }
