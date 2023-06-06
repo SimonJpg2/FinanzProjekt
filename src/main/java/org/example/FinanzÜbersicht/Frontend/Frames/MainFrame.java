@@ -5,6 +5,7 @@ import org.example.FinanzÜbersicht.Backend.Entity.FinanzEntity;
 import org.example.FinanzÜbersicht.Backend.Service.FinanzService;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
@@ -299,24 +300,24 @@ public class MainFrame extends JFrame {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
         for (int i = 0; i < entities.size(); i++) {
-            // add index 0 to avoid IndexOutOfBoundsException in for loop.
-            if (i == 0) {
-                tableModel.addRow(new Object[]{
-                        entities.get(i).getId(),
-                        simpleDateFormat.format(entities.get(i).getDate()),
-                        entities.get(i).getValue(),
-                        entities.get(i).getValue()
-                });
-                continue;
-            }
-
             // fill JTable with data.
             tableModel.addRow(new Object[]{
                     entities.get(i).getId(),
                     simpleDateFormat.format(entities.get(i).getDate()),
                     entities.get(i).getValue(),
-                    entities.get(i - 1).getValue() + entities.get(i).getValue()
+                    entities.stream()
+                            .mapToDouble(FinanzEntity::getValue)
+                            .sum() // Java stream to calculate current budget.
             });
+        }
+    }
+
+    private void removeTableData() {
+        DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+        if (defaultTableModel.getRowCount() > 0) {
+            for (int i = defaultTableModel.getRowCount() - 1; i > -1; i--) {
+                defaultTableModel.removeRow(i);
+            }
         }
     }
 
@@ -332,8 +333,20 @@ public class MainFrame extends JFrame {
         if (e.getSource() != jButton1) {
             return;
         }
+        try {
+            double valueToAdd =  Double.parseDouble(jTextField1.getText());
+            backendController.getFinanzService().create(new FinanzEntity(valueToAdd));
+        } catch (NumberFormatException ex) {
+            jTextField1.setText("Format: 100.50");
+            return;
+        }
+        removeTableData();
+        jComboBox1.setSelectedItem("Alles");
+        appendEntities();
+
+        AbstractTableModel abstractTableModel = (AbstractTableModel) jTable1.getModel();
+        abstractTableModel.fireTableDataChanged();
         System.out.println("(+) Entry added successfully.");
-        // TODO: implement logic to add entry to database and refill JTable.
     }
 
     private void updateFinanzEntity(ActionEvent e) {
