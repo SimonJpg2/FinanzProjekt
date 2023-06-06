@@ -82,7 +82,7 @@ public class RegisterFrame extends JFrame {
         jPanel1.setBackground(new Color(41, 129, 186));
 
         jLabel1.setFont(new Font("Arial Black", BOLD, 18)); // NOI18N
-        jLabel1.setText("Login Finanzübersicht");
+        jLabel1.setText("Sign up Finanzübersicht");
 
         jLabel2.setFont(new Font("Arial", PLAIN, 14)); // NOI18N
         jLabel2.setText("Du hast bereits einen Account?");
@@ -153,7 +153,7 @@ public class RegisterFrame extends JFrame {
 
         jButton2.setBackground(new Color(41, 129, 186));
         jButton2.setFont(new Font("Arial Black", BOLD, 18)); // NOI18N
-        jButton2.setText("Sign in");
+        jButton2.setText("Sign up");
         jButton2.setToolTipText("Zum Bestätigen drücken");
         jButton2.setFocusPainted(false);
         jButton2.setBorderPainted(false);
