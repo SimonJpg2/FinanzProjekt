@@ -14,6 +14,18 @@ public class UserEntity {
     private final String email;
     private final String password;
 
+    /**
+     * Method UserEntity
+     *
+     * <p>
+     *     Is used to return data of the database.
+     * </p>
+     * @param id the id of the database table
+     * @param username the username of the account
+     * @param email the email address of the account
+     * @param password the password of the account
+     */
+
     public UserEntity(int id, String username, String email, String password) {
         this.id = id;
         this.username = username;
@@ -21,6 +33,15 @@ public class UserEntity {
         this.password = password;
     }
 
+    /**
+     * Constructor UserEntity.
+     * <p>
+     *     Is used to represent the user.
+     * </p>
+     * @param username the username of the account
+     * @param email the email address of the account
+     * @param password the password of the account
+     */
     public UserEntity(String username, String email, String password) {
         this.username = username;
         this.email = email;

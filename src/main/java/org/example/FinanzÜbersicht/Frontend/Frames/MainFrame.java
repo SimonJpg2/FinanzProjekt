@@ -312,6 +312,13 @@ public class MainFrame extends JFrame {
         }
     }
 
+    /**
+     * Method removeTableData
+     *
+     * <p>
+     *     Deletes each row of the JTable.
+     * </p>
+     */
     private void removeTableData() {
         DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
         if (defaultTableModel.getRowCount() > 0) {
@@ -329,17 +336,29 @@ public class MainFrame extends JFrame {
         // TODO: check wich item has been selected and call specified method.
     }
 
+    /**
+     * Method addFinanzEntity.
+     *
+     * <p>
+     *     Method to store finanzEntity on MySQL database and display all finanzEntities on JTable.
+     * </p>
+     * @param e ActionEvent of JButton.
+     */
     private void addFinanzEntity(ActionEvent e) {
         if (e.getSource() != jButton1) {
             return;
         }
+
+        // create new entry on database
         try {
-            double valueToAdd =  Double.parseDouble(jTextField1.getText());
+            double valueToAdd = Double.parseDouble(jTextField1.getText());
             backendController.getFinanzService().create(new FinanzEntity(valueToAdd));
         } catch (NumberFormatException ex) {
             jTextField1.setText("Format: 100.50");
             return;
         }
+
+        // logic for JTable
         removeTableData();
         jComboBox1.setSelectedItem("Alles");
         appendEntities();
