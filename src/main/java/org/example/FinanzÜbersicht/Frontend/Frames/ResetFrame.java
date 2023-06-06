@@ -1,8 +1,6 @@
 package org.example.FinanzÜbersicht.Frontend.Frames;
 
-import org.example.FinanzÜbersicht.Backend.BackendController;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
-import org.example.FinanzÜbersicht.Backend.Security.BadCharacters;
 import org.example.FinanzÜbersicht.Backend.Service.UserService;
 
 import javax.swing.GroupLayout;
@@ -15,6 +13,7 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.awt.Font.*;
@@ -84,6 +83,7 @@ public class ResetFrame extends JFrame {
         jButton1.setFont(new Font("Arial Black", PLAIN, 12)); // NOI18N
         jButton1.setText("Change");
         jButton1.addActionListener(this::changePassword);
+        jButton1.setFocusPainted(false);
 
         jLabel4.setFont(new Font("Arial", BOLD, 12)); // NOI18N
 
@@ -183,20 +183,27 @@ public class ResetFrame extends JFrame {
             return;
         }
 
+        // check if passwords are equal.
         if (!password1.equals(password2)) {
             jLabel4.setText("Passwörter ungleich.");
             System.err.println("(!) Reset password failed because passwords aren't equal");
             return;
         }
+
+        // select the current user.
         List<UserEntity> users = userService.select();
         UserEntity userToUpdate = users.get(0);
 
-        userService.updateById(userToUpdate.getId(),
+        // update the password of the current user.
+        userService.updateById(
+                userToUpdate.getId(),
                 new UserEntity(
-                        userToUpdate.getUsername(),
-                        userToUpdate.getEmail(),
-                        new String(jPasswordField1.getPassword())
-                ));
+                    userToUpdate.getUsername(),
+                    userToUpdate.getEmail(),
+                    Arrays.toString(jPasswordField2.getPassword())
+                )
+        );
         jLabel4.setText("Success");
+        System.out.println("(+) Password has been changed.");
     }
 }

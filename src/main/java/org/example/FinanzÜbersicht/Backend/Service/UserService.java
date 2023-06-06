@@ -173,6 +173,8 @@ public class UserService implements User {
     }
 
     /**
+     * Method updateById.
+     *
      * <p>
      *      Sends statement to update an existing user.
      * </p>

@@ -99,10 +99,12 @@ public class VerificationFrame extends JFrame {
         jButton1.setFont(new Font("Arial Black", PLAIN, 12)); // NOI18N
         jButton1.setText("Send");
         jButton1.addActionListener(this::sendMail);
+        jButton1.setFocusPainted(false);
 
         jButton2.setFont(new Font("Arial Black", PLAIN, 12)); // NOI18N
         jButton2.setText("Submit");
         jButton2.addActionListener(this::verify);
+        jButton2.setFocusPainted(false);
 
         jLayeredPane1.setLayer(jPanel1, DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel1, DEFAULT_LAYER);
@@ -245,7 +247,7 @@ public class VerificationFrame extends JFrame {
         if (jTextField2.getText().equals(token)) {
             token = "";
             System.out.println("(~) Initializing ResetFrame.");
-            new ResetFrame(userService).setVisible(true); // TODO complete ResetFrame initialisation.
+            new ResetFrame(userService).setVisible(true);
             dispose();
         }
     }
