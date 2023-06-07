@@ -12,6 +12,7 @@ import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static java.awt.Font.*;
@@ -297,7 +298,7 @@ public class MainFrame extends JFrame {
 
         // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < entities.size(); i++) {
             // fill JTable with data.
@@ -308,6 +309,91 @@ public class MainFrame extends JFrame {
                     entities.stream()
                             .mapToDouble(FinanzEntity::getValue)
                             .sum() // Java stream to calculate current budget.
+            });
+        }
+    }
+
+    /**
+     * Method appendEntitiesOfMonth
+     * <p>
+     *     Appends data of the last month to the JTable.
+     * </p>
+     */
+
+    private void appendEntitiesOfMonth() {
+        // avoid NullPointerException.
+        if (backendController.getFinanzService() == null) {
+            System.err.println("(!) Displaying data failed because finanzService is not initialized.");
+            return;
+        }
+
+        // current Month
+        int currentMonth = new Date(System.currentTimeMillis()).getMonth();
+
+        // get references for service and entities.
+        FinanzService service = backendController.getFinanzService();
+        List<FinanzEntity> entitiesOfDB = service.select();
+
+        List<FinanzEntity> entities = entitiesOfDB
+                .stream()
+                .filter(e -> currentMonth - e.getDate().getMonth() < 2)
+                .toList(); // Java stream to filter the last month.
+
+        // get table model and date formatter.
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (FinanzEntity entity : entities) {
+            // fill JTable with data.
+            tableModel.addRow(new Object[]{
+                    entity.getId(),
+                    simpleDateFormat.format(entity.getDate()),
+                    entity.getValue(),
+                    entitiesOfDB.stream()
+                                .mapToDouble(FinanzEntity::getValue)
+                                .sum() // Java stream to calculate current budget.
+            });
+        }
+    }
+
+    /**
+     * Method appendEntitiesOfToday.
+     * <p>
+     *     Appends data of today to the JTable.
+     * </p>
+     */
+    private void appendEntitiesOfToday() {
+        // avoid NullPointerException.
+        if (backendController.getFinanzService() == null) {
+            System.err.println("(!) Displaying data failed because finanzService is not initialized.");
+            return;
+        }
+
+        // get table model and date formatter.
+        tableModel = (DefaultTableModel) jTable1.getModel();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        // current date
+        String currentDate = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+
+        // get references for service and entities.
+        FinanzService service = backendController.getFinanzService();
+        List<FinanzEntity> entitiesOfDB = service.select();
+
+        List<FinanzEntity> entities = entitiesOfDB
+                .stream()
+                .filter(entity -> simpleDateFormat.format(entity.getDate()).equals(currentDate))
+                .toList(); // Java stream to filter current entities.
+
+        for (FinanzEntity entity : entities) {
+            // fill JTable with data.
+            tableModel.addRow(new Object[]{
+                    entity.getId(),
+                    simpleDateFormat.format(entity.getDate()),
+                    entity.getValue(),
+                    entitiesOfDB.stream()
+                                .mapToDouble(FinanzEntity::getValue)
+                                .sum() // Java stream to calculate current budget.
             });
         }
     }
@@ -328,19 +414,50 @@ public class MainFrame extends JFrame {
         }
     }
 
+    /**
+     * Method comboBoxItemChanged.
+     * <p>
+     *     Prints correct data on JTable.
+     * </p>
+     * @param e ActionEvent of JComboBox
+     */
     private void comboBoxItemChanged(ActionEvent e) {
         if (e.getSource() != jComboBox1) {
             return;
         }
-        System.out.println("(+) Item of JComboBox changed");
-        // TODO: check wich item has been selected and call specified method.
+
+        String selectedItem = (String) jComboBox1.getSelectedItem();
+
+        // Avoid NullPointerException.
+        if (selectedItem == null) {
+            System.err.println("(!) Item of JComboBox not changed because item is null.");
+            return;
+        }
+
+        // Check which item has been selected.
+        if (selectedItem.equals("Alles")) {
+            removeTableData();
+            appendEntities();
+            System.out.println("(+) Item of JComboBox changed to \"Alles\".");
+        } else if (selectedItem.equals("Monat")) {
+            removeTableData();
+            appendEntitiesOfMonth();
+            System.out.println("(+) Item of JComboBox changed to \"Monat\".");
+        } else {
+            removeTableData();
+            appendEntitiesOfToday();
+            System.out.println("(+) Item of JComboBox changed to \"Heute\".");
+        }
+        // Fire Event that data of JTable changed.
+        AbstractTableModel abstractTableModel = (AbstractTableModel) jTable1.getModel();
+        abstractTableModel.fireTableDataChanged();
     }
 
     /**
      * Method addFinanzEntity.
      *
      * <p>
-     *     Method to store finanzEntity on MySQL database and display all finanzEntities on JTable.
+     *     Method to store finanzEntity on MySQL database.
      * </p>
      * @param e ActionEvent of JButton.
      */
@@ -358,13 +475,8 @@ public class MainFrame extends JFrame {
             return;
         }
 
-        // logic for JTable
-        removeTableData();
+        // Reset jComboBox to default.
         jComboBox1.setSelectedItem("Alles");
-        appendEntities();
-
-        AbstractTableModel abstractTableModel = (AbstractTableModel) jTable1.getModel();
-        abstractTableModel.fireTableDataChanged();
         System.out.println("(+) Entry added successfully.");
     }
 
