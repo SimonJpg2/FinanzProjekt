@@ -18,10 +18,24 @@ public class DatabaseConnector {
     private final String url;
     private Connection connection;
 
+    /**
+     * Constructor DatabaseConnector.
+     * <p>
+     *     Used for testing purposes
+     * </p>
+     * @param url {@link java.lang.String} to test Database.
+     */
+    @SuppressWarnings("unused")
     public DatabaseConnector(String url) {
         this.url = url;
     }
 
+    /**
+     * Constructor DatabaseConnector.
+     * <p>
+     *     Initializes URL of the database.
+     * </p>
+     */
     public DatabaseConnector() {
         this.url = "jdbc:mysql://db4free.net:3306/finances";
     }
@@ -53,6 +67,7 @@ public class DatabaseConnector {
      *     Closes connection to database.
      * </p>
      */
+    @SuppressWarnings("unused")
     public void disconnect() {
         try {
             connection.close();

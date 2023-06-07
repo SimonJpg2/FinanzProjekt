@@ -14,6 +14,7 @@ public class SecurityException extends RuntimeException {
         super(message);
     }
 
+    @SuppressWarnings("unused")
     public SecurityException(String message, Throwable cause) {
         super(message, cause);
     }

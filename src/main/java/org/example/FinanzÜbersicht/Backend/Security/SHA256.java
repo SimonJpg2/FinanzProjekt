@@ -1,14 +1,17 @@
 package org.example.FinanzÜbersicht.Backend.Security;
 
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import static java.nio.charset.StandardCharsets.*;
 
 /**
  * Class SHA256.
  * <p>
  *     This class contains logic to hash sensitive userdata.
  * </p>
+ * @version 1.0
+ * @author Simon Balcke
  */
 public class SHA256 {
     /**
@@ -21,7 +24,7 @@ public class SHA256 {
      * @throws SecurityException if encryption fails.
      */
     public String hash(String plaintext) throws SecurityException {
-        byte[] plaintextBytes = plaintext.getBytes(StandardCharsets.UTF_8);
+        byte[] plaintextBytes = plaintext.getBytes(UTF_8);
         try {
             return new String(MessageDigest.getInstance("SHA-256").digest(plaintextBytes));
         } catch (NoSuchAlgorithmException e) {

@@ -27,6 +27,7 @@ public class BackendController {
      * <p>
      *     Initializes the backend of the application.
      * </p>
+     * @param sha256 {@link org.example.FinanzÜbersicht.Backend.Security.SHA256} reference to hash sensible data.
      */
     public BackendController(SHA256 sha256) {
         // initialize database connection.

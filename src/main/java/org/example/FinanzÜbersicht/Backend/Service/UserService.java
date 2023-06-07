@@ -31,7 +31,11 @@ public class UserService implements User {
 
     /**
      * Constructor UserService.
+     * <p>
+     *     Initializes UserService.
+     * </p>
      * @param connection {@link java.sql.Connection} to database.
+     * @param sha256 {@link org.example.FinanzÜbersicht.Backend.Security.SHA256} reference to hash sensible data.
      */
     public UserService(Connection connection, SHA256 sha256) {
         this.connection = connection;

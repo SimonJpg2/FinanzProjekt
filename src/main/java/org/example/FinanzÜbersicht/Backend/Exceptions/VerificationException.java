@@ -15,6 +15,7 @@ public class VerificationException extends RuntimeException {
         super(message);
     }
 
+    @SuppressWarnings("unused")
     public VerificationException(String message, Throwable cause) {
         super(message, cause);
     }

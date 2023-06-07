@@ -15,7 +15,7 @@ public class UserEntity {
     private final String password;
 
     /**
-     * Method UserEntity
+     * Constructor UserEntity
      *
      * <p>
      *     Is used to return data of the database.

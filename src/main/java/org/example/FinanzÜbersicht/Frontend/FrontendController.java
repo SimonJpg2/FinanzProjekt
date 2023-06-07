@@ -20,6 +20,7 @@ public class FrontendController {
      *     Initializes the frontend.
      * </p>
      * @param backendController an {@link org.example.FinanzÜbersicht.Backend.BackendController} instance.
+     * @param sha256 {@link org.example.FinanzÜbersicht.Backend.Security.SHA256} instance.
      */
     public FrontendController(BackendController backendController, SHA256 sha256) {
         System.out.println("(~) Initializing JFrames.");

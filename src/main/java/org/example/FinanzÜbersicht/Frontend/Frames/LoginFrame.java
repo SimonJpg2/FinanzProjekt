@@ -81,6 +81,12 @@ public class LoginFrame extends JFrame {
         System.out.println("(+) Login frame components initialized.");
     }
 
+    /**
+     * Method initComponents.
+     * <p>
+     *     Initializes components for the GUI.
+     * </p>
+     */
     private void initComponents() {
         jMenu1.setText("jMenu1");
 

@@ -74,6 +74,12 @@ public class RegisterFrame extends JFrame {
         System.out.println("(+) Registration frame components initialized.");
     }
 
+    /**
+     * Method initComponents.
+     * <p>
+     *     Initializes components for the GUI.
+     * </p>
+     */
     private void initComponents() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 

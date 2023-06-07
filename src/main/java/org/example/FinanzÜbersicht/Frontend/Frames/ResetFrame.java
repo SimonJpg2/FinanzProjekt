@@ -24,6 +24,16 @@ import static javax.swing.LayoutStyle.ComponentPlacement.*;
 import static javax.swing.GroupLayout.Alignment.LEADING;
 import static org.example.FinanzÜbersicht.Backend.Security.BadCharacters.*;
 
+/**
+ * Class ResetFrame
+ * <p>
+ *     Part of the GUI to reset the password.
+ *     (The GUI has been created with Netbeans IDE.)
+ * </p>
+ * @version 1.0
+ * @author Simon Balcke
+ * @see javax.swing.JFrame
+ */
 public class ResetFrame extends JFrame {
     private JButton jButton1;
     private JLabel jLabel4;

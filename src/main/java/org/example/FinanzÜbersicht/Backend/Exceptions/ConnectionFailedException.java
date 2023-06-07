@@ -11,6 +11,7 @@ package org.example.FinanzÜbersicht.Backend.Exceptions;
  */
 
 public class ConnectionFailedException extends RuntimeException {
+    @SuppressWarnings("unused")
     public ConnectionFailedException(String message) {
         super(message);
     }
