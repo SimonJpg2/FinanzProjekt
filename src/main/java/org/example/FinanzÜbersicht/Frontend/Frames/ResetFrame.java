@@ -54,7 +54,6 @@ public class ResetFrame extends JFrame {
      *     Initializes swing and awt components.
      * </p>
      */
-
     private void initComponents() {
         JLayeredPane jLayeredPane1 = new JLayeredPane();
         JPanel jPanel1 = new JPanel();

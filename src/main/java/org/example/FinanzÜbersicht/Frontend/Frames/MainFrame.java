@@ -36,14 +36,6 @@ public class MainFrame extends JFrame {
     private JButton jButton2;
     private JButton jButton3;
     private JComboBox<String> jComboBox1;
-    private JLabel jLabel1;
-    private JLabel jLabel2;
-    private JLabel jLabel3;
-    private JLabel jLabel4;
-    private JLabel jLabel5;
-    private JPanel jPanel1;
-    private JPanel jPanel2;
-    private JScrollPane jScrollPane1;
     private JTable jTable1;
     private JTextField jTextField1;
     private JTextField jTextField2;
@@ -69,22 +61,22 @@ public class MainFrame extends JFrame {
      * </p>
      */
     private void initComponents() {
-        jPanel1 = new JPanel();
-        jLabel1 = new JLabel();
-        jPanel2 = new JPanel();
-        jScrollPane1 = new JScrollPane();
+        JPanel jPanel1 = new JPanel();
+        JLabel jLabel1 = new JLabel();
+        JPanel jPanel2 = new JPanel();
+        JScrollPane jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
-        jLabel2 = new JLabel();
+        JLabel jLabel2 = new JLabel();
         jTextField1 = new JTextField();
         jButton1 = new JButton();
-        jLabel3 = new JLabel();
+        JLabel jLabel3 = new JLabel();
         jTextField2 = new JTextField();
         jTextField3 = new JTextField();
-        jLabel4 = new JLabel();
+        JLabel jLabel4 = new JLabel();
         jButton2 = new JButton();
         jTextField4 = new JTextField();
         jButton3 = new JButton();
-        jLabel5 = new JLabel();
+        JLabel jLabel5 = new JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -487,7 +479,6 @@ public class MainFrame extends JFrame {
      * </p>
      * @param e ActionEvent of JButton
      */
-
     private void updateFinanzEntity(ActionEvent e) {
         if (e.getSource() != jButton2) {
             return;
@@ -515,7 +506,6 @@ public class MainFrame extends JFrame {
      * </p>
      * @param e ActionEvent of JButton.
      */
-
     private void deleteFinanzEntity(ActionEvent e) {
         if (e.getSource() != jButton3) {
             return;

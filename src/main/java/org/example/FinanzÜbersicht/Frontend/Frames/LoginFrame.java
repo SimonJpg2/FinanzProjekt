@@ -91,6 +91,7 @@ public class LoginFrame extends JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Sign in Finanzübersicht");
 
         jLayeredPane1.setBackground(new Color(41, 129, 186));
 

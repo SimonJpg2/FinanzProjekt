@@ -6,7 +6,6 @@ import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
 import org.example.FinanzÜbersicht.Backend.Exceptions.SecurityException;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
@@ -82,6 +81,7 @@ public class RegisterFrame extends JFrame {
      */
     private void initComponents() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sign up Finanzübersicht");
 
         jLayeredPane1.setBackground(new Color(41, 129, 186));
 
