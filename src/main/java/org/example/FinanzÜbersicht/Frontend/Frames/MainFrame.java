@@ -480,19 +480,57 @@ public class MainFrame extends JFrame {
         System.out.println("(+) Entry added successfully.");
     }
 
+    /**
+     * Method updateFinanzEntity.
+     * <p>
+     *     updates FinanzEntity of database and refills JTable with data.
+     * </p>
+     * @param e ActionEvent of JButton
+     */
+
     private void updateFinanzEntity(ActionEvent e) {
         if (e.getSource() != jButton2) {
             return;
         }
+
+        try {
+            int id = Integer.parseInt(jTextField2.getText());
+            double value = Double.parseDouble(jTextField3.getText());
+            backendController.getFinanzService().update(id, new FinanzEntity(value));
+        } catch (NumberFormatException ex) {
+            jTextField2.setText("Format: 1");
+            jTextField3.setText("Format: 100.50");
+            return;
+        }
+
+        // Reset jComboBox to default.
+        jComboBox1.setSelectedItem("Alles");
         System.out.println("(+) Entry updated successfully.");
-        // TODO: implement logic to update entry of database and refill JTable.
     }
+
+    /**
+     * Method deleteFinanzEntity.
+     * <p>
+     *     deletes FinanzEntity from database.
+     * </p>
+     * @param e ActionEvent of JButton.
+     */
 
     private void deleteFinanzEntity(ActionEvent e) {
         if (e.getSource() != jButton3) {
             return;
         }
+
+        try {
+            var id = Integer.parseInt(jTextField4.getText());
+            backendController.getFinanzService().delete(id);
+        } catch (NumberFormatException ex) {
+            jTextField4.setText("Format: 1");
+            return;
+        }
+
+        // Reset jComboBox to default.
+        jComboBox1.setSelectedItem("Alles");
         System.out.println("(+) Entry deleted successfully.");
-        // TODO: implement logic to delete entry of database and refill JTable.
     }
 }
