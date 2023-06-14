@@ -5,10 +5,8 @@ import org.example.FinanzÜbersicht.Backend.Database.User;
 import org.example.FinanzÜbersicht.Backend.Entity.UserEntity;
 import org.example.FinanzÜbersicht.Backend.Exceptions.SecurityException;
 import org.example.FinanzÜbersicht.Backend.Security.SHA256;
-import org.example.FinanzÜbersicht.Backend.Service.MailService;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
@@ -19,7 +17,6 @@ import static java.lang.Short.*;
 import static javax.swing.GroupLayout.*;
 import static javax.swing.GroupLayout.Alignment.*;
 import static javax.swing.JLayeredPane.*;
-import static javax.swing.WindowConstants.*;
 
 /**
  * Class LoginFrame.

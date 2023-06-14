@@ -1,8 +1,6 @@
 package org.example.FinanzÜbersicht.Backend;
 
 import org.example.FinanzÜbersicht.Backend.Database.DatabaseConnector;
-import org.example.FinanzÜbersicht.Backend.Database.Finances;
-import org.example.FinanzÜbersicht.Backend.Database.User;
 import org.example.FinanzÜbersicht.Backend.Exceptions.ConnectionFailedException;
 import org.example.FinanzÜbersicht.Backend.Security.SHA256;
 import org.example.FinanzÜbersicht.Backend.Service.FinanzService;
