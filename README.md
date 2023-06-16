@@ -119,5 +119,7 @@ Compiler version: 16
 
 ### dependencies
 [https://mvnrepository.com/artifact/mysql/mysql-connector-java](https://mvnrepository.com/artifact/mysql/mysql-connector-java) : version 8.0.33
+
 [https://search.maven.org/artifact/javax.mail/javax.mail-api/1.6.2/jar](https://search.maven.org/artifact/javax.mail/javax.mail-api/1.6.2/jar) : version 1.6.2
+
 [https://mvnrepository.com/artifact/com.sun.mail/javax.mail/1.6.0](https://mvnrepository.com/artifact/com.sun.mail/javax.mail/1.6.0) : version 1.6.2
