@@ -25,8 +25,11 @@ Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für d
 3. Installationsanleitung
 4. Technologies
 ****
+
 ## Leitfaden für die Installation unter Windows:
-### Schritt 1:
+<p><img align="center" src="https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white" /></p>
+
+<h3 align="left">Schritt 1:</h3>
 Zunächst wird der MySQL Server auf der offiziellen Herstellerseite heruntergeladen.
 
 [https://dev.mysql.com/downloads/installer/]()
@@ -66,6 +69,7 @@ Um die Verifizierungsmail verwenden zu können, müssen die Zugangsdaten für ei
 Bei Erfolg sind die Vorbereitungen abgeschlossen und die Anwendung kann gestartet werden.
 
 ## Leitfaden für die Installation unter Linux:
+<p><img align="center" src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" /></p>
 
 ### Schritt 1:
 
