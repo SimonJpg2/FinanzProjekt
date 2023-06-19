@@ -9,6 +9,9 @@ Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für d
 <p><img align="center" src= "https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/SignUp.PNG" /></p>
 
 <h3>JFrame für Login</h3>
+<p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/SignIn.PNG" /></p>
+
+<h3>JFrame für Verifizierung</h3>
 
 ****
 ## Inhaltsverzeichnis
