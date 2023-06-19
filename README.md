@@ -13,6 +13,9 @@ Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für d
 
 <h3>JFrame für Verifizierung</h3>
 
+<h3>Hauptfenster<h3/>
+<p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/MainFrame.PNG" /></p>
+
 ****
 ## Inhaltsverzeichnis
 1. Projektbeschreibung
