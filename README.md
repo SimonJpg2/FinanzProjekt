@@ -4,6 +4,12 @@ Zweck dieses Programmes ist es, einen geordneten Überblick über die eigenen Fi
 Für die Umsetzung werden die Benutzerdaten im gehashten Zustand und die Finanzdaten auf einer MySQL Datenbank gespeichert.
 Um die Anwendung verwenden zu können, muss eine MySQL Datenbank installiert sein oder die URL und das Password in der entsprechenden Klasse geändert werden.
 Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für die Verifizierung einer Zugriffserlaubnis.
+
+<h3>JFrame für Registrierung<h3/>
+<p><img align="center" src= "https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/SignUp.PNG" /></p>
+
+<h3>JFrame für Login</h3>
+
 ****
 ## Inhaltsverzeichnis
 1. Projektbeschreibung
