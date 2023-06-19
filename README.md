@@ -1,4 +1,5 @@
-# Anwendung FinanzApp
+<h1 align="center">Anwendung FinanzApp</h1>
+
 Diese Anwendung ist im Rahmen einer Klausurersatzleistung des Faches Programmieren entstanden.
 Zweck dieses Programmes ist es, einen geordneten Überblick über die eigenen Finanzen zu behalten.
 Für die Umsetzung werden die Benutzerdaten im gehashten Zustand und die Finanzdaten auf einer MySQL Datenbank gespeichert.
@@ -12,6 +13,7 @@ Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für d
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/SignIn.PNG" /></p>
 
 <h3>JFrame für Verifizierung</h3>
+<p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/Verification.PNG" /></p>
 
 <h3>Hauptfenster<h3/>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/MainFrame.PNG" /></p>
