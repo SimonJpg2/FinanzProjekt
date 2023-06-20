@@ -1,9 +1,9 @@
 package org.example.FinanzÜbersicht.Backend.Security;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import static java.nio.charset.StandardCharsets.*;
+import static java.security.MessageDigest.getInstance;
 
 /**
  * Class SHA256.
@@ -26,7 +26,7 @@ public class SHA256 {
     public String hash(String plaintext) throws SecurityException {
         byte[] plaintextBytes = plaintext.getBytes(UTF_8);
         try {
-            return new String(MessageDigest.getInstance("SHA-256").digest(plaintextBytes));
+            return new String(getInstance("SHA-256").digest(plaintextBytes));
         } catch (NoSuchAlgorithmException e) {
             throw new SecurityException("Encryption failed: " + e.getMessage(), e.getCause());
         }

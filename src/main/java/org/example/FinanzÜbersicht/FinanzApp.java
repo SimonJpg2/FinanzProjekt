@@ -51,7 +51,7 @@ public class FinanzApp {
         System.out.println(logo);
         System.out.println("\n\nThis application was created by Simon Balcke.\nSince 08.05.2023");
         System.out.println("-----------------------------------------------------------------------");
-        SHA256 sha256 = new SHA256();
+        var sha256 = new SHA256();
         new FrontendController(new BackendController(sha256), sha256);
     }
 }
