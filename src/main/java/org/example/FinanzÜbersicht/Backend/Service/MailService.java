@@ -8,6 +8,9 @@ import javax.mail.internet.MimeMessage;
 import java.security.SecureRandom;
 import java.util.Properties;
 
+import static javax.mail.Message.RecipientType.TO;
+import static javax.mail.Transport.*;
+
 /**
  * Class MailService.
  * <p>
@@ -59,7 +62,7 @@ public class MailService {
      */
     private void prepareRandomCode() {
         // use secure random for more security.
-        SecureRandom random = new SecureRandom();
+        var random = new SecureRandom();
         for (int i = 0; i < 6; i++) {
             code += random.nextInt(9);
         }
@@ -77,12 +80,12 @@ public class MailService {
         Message message = new MimeMessage(session);
         try {
             message.setFrom(new InternetAddress(username)); // set sender
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(clientEmail)); // set receiver
+            message.setRecipient(TO, new InternetAddress(clientEmail)); // set receiver
             message.setSubject("Finanzübersicht Verifizierung"); // set subject
             message.setText("Dein Verifizierungstoken lautet:" + code + ".\n" +
                     "Falls du dein Passwort nicht zurücksetzen willst, kannst du diese E-Mail ignorieren.\n" +
                     "Diese Mail wurde automatisch versendet und antwortet auf keine einkommenden E-Mails."); // set message
-            Transport.send(message); // send email
+            send(message); // send email
         } catch (MessagingException e) {
             throw new VerificationException(e.getMessage());
         }
