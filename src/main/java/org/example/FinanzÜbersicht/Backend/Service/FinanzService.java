@@ -47,7 +47,6 @@ public class FinanzService implements Finances {
                 );
             }
             statement.close();
-            resultSet.close();
             return entities;
         } catch (SQLException e) {
             System.err.printf("(!) Select finanzen statement failed:%n%s%n", e.getMessage());
@@ -78,7 +77,6 @@ public class FinanzService implements Finances {
                     resultSet.getDouble(3)
             );
             statement.close();
-            resultSet.close();
             return finanzEntity;
         } catch (SQLException e) {
             System.err.printf("(!) SelectById finanzen statement failed:%n%s%n", e.getMessage());

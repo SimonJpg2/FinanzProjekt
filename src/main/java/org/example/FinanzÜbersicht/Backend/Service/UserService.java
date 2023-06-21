@@ -62,11 +62,10 @@ public class UserService implements User {
                                 resultSet.getString(2),
                                 resultSet.getString(3),
                                 resultSet.getString(4)
-                    )
+                        )
                 );
             }
             statement.close();
-            resultSet.close();
             return entities;
         } catch (SQLException e) {
             System.err.printf("(!) SQL Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
@@ -98,7 +97,6 @@ public class UserService implements User {
                     resultSet.getString(4)
             );
             statement.close();
-            resultSet.close();
             return userEntity;
         } catch (SQLException e) {
             System.err.printf("(!) SelectById Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
