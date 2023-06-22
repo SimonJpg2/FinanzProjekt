@@ -320,7 +320,7 @@ public class RegisterFrame extends JFrame {
             System.err.println("(!) ERROR: Registering user failed because UserService is null.");
             unused.printStackTrace();
         } catch (SecurityException ex) {
-            System.err.printf("(!) ERROR: Registering user failed. %n%s%n", ex.getMessage());
+            System.err.printf("(!) WARNING: Registering user failed. %n\t%s%n", ex.getMessage());
             username.setText(ex.getMessage());
         }
     }
