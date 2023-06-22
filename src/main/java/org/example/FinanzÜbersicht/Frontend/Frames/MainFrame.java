@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
         this.backendController = backendController;
         initComponents();
         appendEntities();
-        System.out.println("(+) MainFrame initialized successfully.");
+        System.out.println("(+) INFO: MainFrame initialized successfully.");
     }
 
     /**
@@ -280,7 +280,7 @@ public class MainFrame extends JFrame {
     private void appendEntities() {
         // avoid NullPointerException.
         if (backendController.getFinanzService() == null) {
-            System.err.println("(!) Displaying data failed because finanzService is not initialized.");
+            System.err.println("(!) ERROR: Displaying data failed because finanzService is not initialized.");
             return;
         }
 
@@ -315,7 +315,7 @@ public class MainFrame extends JFrame {
     private void appendEntitiesOfMonth() {
         // avoid NullPointerException.
         if (backendController.getFinanzService() == null) {
-            System.err.println("(!) Displaying data failed because finanzService is not initialized.");
+            System.err.println("(!) ERROR: Displaying data failed because finanzService is not initialized.");
             return;
         }
 
@@ -357,7 +357,7 @@ public class MainFrame extends JFrame {
     private void appendEntitiesOfToday() {
         // avoid NullPointerException.
         if (backendController.getFinanzService() == null) {
-            System.err.println("(!) Displaying data failed because finanzService is not initialized.");
+            System.err.println("(!) ERROR: Displaying data failed because finanzService is not initialized.");
             return;
         }
 
@@ -404,6 +404,7 @@ public class MainFrame extends JFrame {
                 defaultTableModel.removeRow(i);
             }
         }
+        System.out.println("(+) INFO: Table data removed");
     }
 
     /**
@@ -422,7 +423,7 @@ public class MainFrame extends JFrame {
 
         // Avoid NullPointerException.
         if (selectedItem == null) {
-            System.err.println("(!) Item of JComboBox not changed because item is null.");
+            System.err.println("(!) WARNING: Item of JComboBox not changed because item is null.");
             return;
         }
 
@@ -430,15 +431,15 @@ public class MainFrame extends JFrame {
         if (selectedItem.equals("Alles")) {
             removeTableData();
             appendEntities();
-            System.out.println("(+) Item of JComboBox changed to \"Alles\".");
+            System.out.println("(+) INFO: Item of JComboBox changed to \"Alles\".");
         } else if (selectedItem.equals("Monat")) {
             removeTableData();
             appendEntitiesOfMonth();
-            System.out.println("(+) Item of JComboBox changed to \"Monat\".");
+            System.out.println("(+) INFO: Item of JComboBox changed to \"Monat\".");
         } else {
             removeTableData();
             appendEntitiesOfToday();
-            System.out.println("(+) Item of JComboBox changed to \"Heute\".");
+            System.out.println("(+) INFO: Item of JComboBox changed to \"Heute\".");
         }
         // Fire Event that data of JTable changed.
         AbstractTableModel abstractTableModel = (AbstractTableModel) jTable1.getModel();
@@ -464,12 +465,13 @@ public class MainFrame extends JFrame {
             backendController.getFinanzService().create(new FinanzEntity(valueToAdd));
         } catch (NumberFormatException ex) {
             jTextField1.setText("Format: 100.50");
+            System.err.println("(!) WARNING: Incorrect format used.");
             return;
         }
 
         // Reset jComboBox to default.
         jComboBox1.setSelectedItem("Alles");
-        System.out.println("(+) Entry added successfully.");
+        System.out.println("(+) INFO: Entry added successfully.");
     }
 
     /**
@@ -491,12 +493,13 @@ public class MainFrame extends JFrame {
         } catch (NumberFormatException ex) {
             jTextField2.setText("Format: 1");
             jTextField3.setText("Format: 100.50");
+            System.err.println("(!) WARNING: Incorrect format used.");
             return;
         }
 
         // Reset jComboBox to default.
         jComboBox1.setSelectedItem("Alles");
-        System.out.println("(+) Entry updated successfully.");
+        System.out.println("(+) INFO: Entry updated successfully.");
     }
 
     /**
@@ -516,11 +519,12 @@ public class MainFrame extends JFrame {
             backendController.getFinanzService().delete(id);
         } catch (NumberFormatException ex) {
             jTextField4.setText("Format: 1");
+            System.err.println("(!) WARNING: Incorrect format used.");
             return;
         }
 
         // Reset jComboBox to default.
         jComboBox1.setSelectedItem("Alles");
-        System.out.println("(+) Entry deleted successfully.");
+        System.out.println("(+) INFO: Entry deleted successfully.");
     }
 }

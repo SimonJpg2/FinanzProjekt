@@ -44,7 +44,7 @@ public class ResetFrame extends JFrame {
     public ResetFrame(UserService userService) {
         this.userService = userService;
         initComponents();
-        System.out.println("(+) ResetFrame initialized successfully.");
+        System.out.println("(+) INFO: ResetFrame initialized successfully.");
     }
 
     /**
@@ -180,7 +180,7 @@ public class ResetFrame extends JFrame {
         for (String s : FORBIDDEN) {
             if (password1.contains(s) || password2.contains(s)) {
                 jLabel4.setText("Failed");
-                System.err.println("(!) Reset password failed, chars of password could lead to SQL-I.");
+                System.err.println("(!) WARNING: Reset password failed, chars of password could lead to SQL-I.");
                 return;
             }
         }
@@ -188,14 +188,14 @@ public class ResetFrame extends JFrame {
         // check if password is given by the client
         if (password1.isEmpty()) {
             jLabel4.setText("Passwort angeben.");
-            System.err.println("(!) Reset password failed because no new password was set.");
+            System.err.println("(!) WARNING: Reset password failed because no new password was set.");
             return;
         }
 
         // check if passwords are equal.
         if (!password1.equals(password2)) {
             jLabel4.setText("Passwörter ungleich.");
-            System.err.println("(!) Reset password failed because passwords aren't equal");
+            System.err.println("(!) WARNING: Reset password failed because passwords aren't equal");
             return;
         }
 
@@ -213,6 +213,6 @@ public class ResetFrame extends JFrame {
                 )
         );
         jLabel4.setText("Success");
-        System.out.println("(+) Password has been changed.");
+        System.out.println("(+) INFO: Password has been changed.");
     }
 }

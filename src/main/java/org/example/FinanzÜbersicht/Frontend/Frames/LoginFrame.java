@@ -273,12 +273,14 @@ public class LoginFrame extends JFrame {
         // check if username is empty
         if (usernameOfTextField.isEmpty()) {
             username.setText("Bitte geben Sie einen Benutzernamen an.");
+            System.err.println("(!) WARNING: No username available.");
             return;
         }
 
         //check if password is empty
         if (password.isEmpty()) {
             username.setText("Bitte geben Sie ein Passwort an.");
+            System.err.println("(!) WARNING: No password available.");
             return;
         }
 

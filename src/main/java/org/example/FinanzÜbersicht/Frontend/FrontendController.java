@@ -23,12 +23,12 @@ public class FrontendController {
      * @param sha256 {@link org.example.FinanzÜbersicht.Backend.Security.SHA256} instance.
      */
     public FrontendController(BackendController backendController, SHA256 sha256) {
-        System.out.println("(~) Initializing JFrames.");
+        System.out.println("(~) INFO: Initializing JFrames.");
 
         // Frame initialisation
         RegisterFrame registerFrame = new RegisterFrame(backendController);
         LoginFrame loginFrame = new LoginFrame(registerFrame, backendController, sha256);
-        System.out.println("(+) JFrames initialized successfully.");
+        System.out.println("(+) INFO: JFrames initialized successfully.");
 
         // visibility logic
         registerFrame.setLoginFrame(loginFrame);

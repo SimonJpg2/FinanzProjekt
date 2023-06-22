@@ -52,7 +52,7 @@ public class DatabaseConnector {
     public Connection connect() throws ConnectionFailedException {
         String password = "R8EMJurt02Huitjajpv9";
         String username = "project_dev";
-        System.out.println("(~) Connecting to MySQL database.");
+        System.out.println("(~) INFO: Connecting to MySQL database.");
         try {
             connection = DriverManager.getConnection(url, username, password);
             return connection;
@@ -72,9 +72,9 @@ public class DatabaseConnector {
         try {
             connection.close();
         } catch (SQLException e) {
-            System.err.printf("(!) Connection can't be closed.%n%s%n", e.getMessage());
+            System.err.printf("(!) ERROR: Connection can't be closed.%n%s%n", e.getMessage());
         } catch (NullPointerException e) {
-            System.err.println("(!) Connection can't be closed, because there is no connection.\n");
+            System.err.println("(!) WARNING: Connection can't be closed, because there is no connection.\n");
         }
     }
 }

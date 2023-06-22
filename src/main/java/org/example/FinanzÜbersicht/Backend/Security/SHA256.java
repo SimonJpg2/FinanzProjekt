@@ -28,7 +28,7 @@ public class SHA256 {
         try {
             return new String(getInstance("SHA-256").digest(plaintextBytes));
         } catch (NoSuchAlgorithmException e) {
-            throw new SecurityException("Encryption failed: " + e.getMessage(), e.getCause());
+            throw new SecurityException("(!) ERROR: Encryption failed: " + e.getMessage(), e.getCause());
         }
     }
 }

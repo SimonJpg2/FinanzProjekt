@@ -66,6 +66,7 @@ public class MailService {
         for (int i = 0; i < 6; i++) {
             code += random.nextInt(9);
         }
+        System.out.println("(+) INFO: Token generated successfully.");
     }
 
     /**

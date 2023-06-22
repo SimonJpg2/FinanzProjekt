@@ -68,7 +68,7 @@ public class UserService implements User {
             statement.close();
             return entities;
         } catch (SQLException e) {
-            System.err.printf("(!) SQL Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) WARNING: SQL Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             resultSet = null;
             return new ArrayList<>();
@@ -99,7 +99,7 @@ public class UserService implements User {
             statement.close();
             return userEntity;
         } catch (SQLException e) {
-            System.err.printf("(!) SelectById Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) WARNING: SelectById Query failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             resultSet = null;
             return new UserEntity();
@@ -133,7 +133,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException | SecurityException e) {
-            System.err.printf("(!) Create user statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) WARNING: Create user statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -201,7 +201,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException | SecurityException e) {
-            System.err.printf("(!) Update user statement failed:%n%s%n", e.getMessage());
+            System.err.printf("(!) WARNING: Update user statement failed:%n%s%n", e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -224,7 +224,7 @@ public class UserService implements User {
             statement.close();
             return success;
         } catch (SQLException e) {
-            System.err.printf("(!) Delete user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
+            System.err.printf("(!) WARNING: Delete user statement failed:%n%s%n%s%n", e.getMessage(), e.getCause().toString());
             e.printStackTrace();
             return false;
         }

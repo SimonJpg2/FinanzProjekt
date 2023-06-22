@@ -52,7 +52,7 @@ public class RegisterFrame extends JFrame {
      */
     public RegisterFrame(BackendController backendController) {
         this.backendController = backendController;
-        System.out.println("(~) Initializing components for registration frame.");
+        System.out.println("(~) INFO: Initializing components for registration frame.");
         jPanel1 = new JPanel();
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
@@ -70,7 +70,7 @@ public class RegisterFrame extends JFrame {
         jTextField1 = new JTextField();
         jLayeredPane1 = new JLayeredPane();
         initComponents();
-        System.out.println("(+) Registration frame components initialized.");
+        System.out.println("(+) INFO: Registration frame components initialized.");
     }
 
     /**
@@ -280,41 +280,47 @@ public class RegisterFrame extends JFrame {
         // check if username is empty
         if (usernameOfTextField.isEmpty()) {
             username.setText("Bitte geben Sie einen Benutzernamen an.");
+            System.err.println("(!) WARNING: No username available.");
             return;
         }
         // check if email is empty
         if (email.isEmpty()) {
             jTextField1.setText("Bitte geben Sie eine E-Mail-Adresse an");
+            System.err.println("(!) WARNING: No E-Mail available.");
             return;
         }
         // check if password is empty
         if (Arrays.toString(jPasswordField2.getPassword()).isEmpty() || Arrays.toString(jPasswordField3.getPassword()).isEmpty()) {
             username.setText("Bitte geben Sie ein Passwort an.");
+            System.err.println("(!) WARNING: No password available.");
             return;
         }
         // check if email is valid
         if (!email.contains("@")) {
             jTextField1.setText("Bitte geben Sie eine gültige E-Mail-Adresse an.");
+            System.err.println("(!) WARNING: E-Mail-Address invalid.");
             return;
         }
         // double check password
         if (!password.equalsIgnoreCase(Arrays.toString(jPasswordField3.getPassword()))) {
             username.setText("Die Passwörter stimmen nicht überein.");
+            System.err.println("(!) WARNING: Passwords not equal.");
             return;
         }
         User service = backendController.getUserService();
         // try to create new user
         try {
             if (!service.select().isEmpty()) {
+                System.err.println("(!) WARNING: User already existing.");
                 throw new SecurityException("Es gibt bereits einen Benutzer, versuchen Sie sich stattdessen anzumelden.");
             }
             service.create(new UserEntity(usernameOfTextField, email, password));
             username.setText("Versuchen Sie sich nun anzumelden.");
         } catch (NullPointerException unused) {
-            System.err.println("(!) Registering user failed because UserService is null.");
+            System.err.println("(!) ERROR: Registering user failed because UserService is null.");
             unused.printStackTrace();
         } catch (SecurityException ex) {
-            System.err.printf("(!) Registering user failed. %n%s%n", ex.getMessage());
+            System.err.printf("(!) ERROR: Registering user failed. %n%s%n", ex.getMessage());
             username.setText(ex.getMessage());
         }
     }
