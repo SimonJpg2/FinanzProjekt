@@ -26,8 +26,8 @@ public class FrontendController {
         System.out.println("(~) INFO: Initializing JFrames.");
 
         // Frame initialisation
-        RegisterFrame registerFrame = new RegisterFrame(backendController);
-        LoginFrame loginFrame = new LoginFrame(registerFrame, backendController, sha256);
+        var registerFrame = new RegisterFrame(backendController);
+        var loginFrame = new LoginFrame(registerFrame, backendController, sha256);
         System.out.println("(+) INFO: JFrames initialized successfully.");
 
         // visibility logic
