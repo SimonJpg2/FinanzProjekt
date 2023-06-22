@@ -58,7 +58,7 @@ public class LoginFrame extends JFrame {
         this.registerFrame = registerFrame;
         this.backendController = backendController;
         this.sha256 = sha256;
-        System.out.println("(~) Initializing components for login frame.");
+        System.out.println("(~) INFO: Initializing components for login frame.");
         jMenu1 = new JMenu();
         jLayeredPane1 = new JLayeredPane();
         jPanel1 = new JPanel();
@@ -75,7 +75,7 @@ public class LoginFrame extends JFrame {
         jPasswordField1 = new JPasswordField();
         jButton2 = new JButton();
         initComponents();
-        System.out.println("(+) Login frame components initialized.");
+        System.out.println("(+) INFO: Login frame components initialized.");
     }
 
     /**
@@ -294,17 +294,17 @@ public class LoginFrame extends JFrame {
             String hashedPassword = existingUser.getPassword();
 
             if (usernameOfTextField.equals(existingUsername) && hashedPassword.equals(sha256.hash(password))) {
-                System.out.println("(~) Initializing MainFrame.");
+                System.out.println("(~) INFO: Initializing MainFrame.");
                 new MainFrame(backendController).setVisible(true);
                 dispose();
                 return;
             }
-            System.err.println("(!) Login failed because of wrong credentials");
+            System.err.println("(!) WARNING: Login failed because of wrong credentials");
             username.setText("Falsches Passwort.");
         } catch (NullPointerException unused) {
-            System.err.println("(!) Login failed because UserService is null.");
+            System.err.println("(!) ERROR: Login failed because UserService is null.");
         } catch (SecurityException ex) {
-            System.err.printf("(!) Login failed.%n%s%n", ex.getMessage());
+            System.err.printf("(!) ERROR: Login failed.%n%s%n", ex.getMessage());
             username.setText(ex.getMessage());
         }
     }
@@ -317,13 +317,9 @@ public class LoginFrame extends JFrame {
      * @param e ActionEvent of JButton.
      */
     private void sendMail(ActionEvent e) {
-        System.out.println("(~) Initializing VerificationFrame.");
-        if (backendController.getUserService() == null) {
-            System.err.println("(!) Initializing VerificationFrame failed because userService is null.");
-            return;
-        }
+        System.out.println("(~) INFO: Initializing VerificationFrame.");
         new VerificationFrame(backendController.getUserService(), sha256).setVisible(true);
-        System.out.println("(+) VerificationFrame initialized successfully.");
+        System.out.println("(+) INFO: VerificationFrame initialized successfully.");
     }
 
     /**

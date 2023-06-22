@@ -47,6 +47,10 @@ public class VerificationFrame extends JFrame {
 
     public VerificationFrame(UserService userService, SHA256 sha256) {
         this.userService = userService;
+
+        if (userService == null) {
+            System.err.println("(!) WARNING: Initializing VerificationFrame incomplete because userService is null.");
+        }
         this.sha256 = sha256;
         initComponents();
     }
@@ -187,9 +191,16 @@ public class VerificationFrame extends JFrame {
             return;
         }
 
+        if (userService == null) {
+            jTextField1.setText("E-Mail nicht gesendet.");
+            System.err.println("(!) ERROR: Can't send E-Mail because userService is null.");
+            return;
+        }
+
         // check if E-Mail is available.
         if (jTextField1.getText().isEmpty()) {
             jTextField1.setText("E-Mail angeben");
+            System.err.println("(!) WARNING: No E-Mail available to compare");
             return;
         }
 
@@ -197,6 +208,7 @@ public class VerificationFrame extends JFrame {
         for (String s : BadCharacters.FORBIDDEN) {
             if (jTextField1.getText().contains(s)) {
                 jTextField1.setText("Verbotene Zeichen wurden angegeben.");
+                System.err.println("(!) WARNING: E-Mail not checked because characters could lead to an SQL-Injection.");
                 return;
             }
         }
@@ -211,18 +223,19 @@ public class VerificationFrame extends JFrame {
                     MailService mailService = new MailService();
                     mailService.sendMail(jTextField1.getText());
                     token = mailService.getCode();
-                    System.out.println("(+) Verification mail send successfully.");
+                    System.out.println("(+) INFO: Verification mail sent successfully.");
                     jTextField1.setText("Überprüfe dein Postfach und gib den Token ein.");
                     return;
                 }
             }
         } catch (VerificationException ex) {
-            System.err.println("(!) Sending verification mail failed.");
+            System.err.println("(!) ERROR: Sending verification mail failed.");
             ex.printStackTrace();
             jTextField1.setText("Etwas ist schief gelaufen, die E-Mail wurde nicht gesendet.");
             return;
         }
         jTextField1.setText("Diese E-Mail hat keinen Benutzer.");
+        System.err.println("(!) WARNING: E-Mail not equal with E-Mail of database.");
     }
 
     /**
@@ -237,18 +250,26 @@ public class VerificationFrame extends JFrame {
             return;
         }
 
+        if (userService == null) {
+            jTextField1.setText("Token nicht verifiziert.");
+            System.err.println("(!) ERROR: Can't verify token because userService is null.");
+            return;
+        }
+
         // check if token is available.
         if (jTextField2.getText().isEmpty()) {
             jTextField2.setText("Token angeben.");
+            System.err.println("(!) WARNING: No token available to compare.");
             return;
         }
 
         // check if token is correct.
         if (jTextField2.getText().equals(token)) {
             token = "";
-            System.out.println("(~) Initializing ResetFrame.");
+            System.out.println("(~) INFO: Initializing ResetFrame.");
             new ResetFrame(userService).setVisible(true);
             dispose();
         }
+        System.err.println("(!) WARNING: Token not equal with generated token.");
     }
 }
