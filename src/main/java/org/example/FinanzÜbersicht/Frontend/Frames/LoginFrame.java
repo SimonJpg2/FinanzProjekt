@@ -304,7 +304,7 @@ public class LoginFrame extends JFrame {
             System.err.println("(!) WARNING: Login failed because of wrong credentials");
             username.setText("Falsches Passwort.");
         } catch (NullPointerException unused) {
-            System.err.println("(!) ERROR: Login failed because UserService is null.");
+            System.err.println("(!) ERROR: Login failed because userService is null.");
         } catch (SecurityException ex) {
             System.err.printf("(!) ERROR: Login failed.%n%s%n", ex.getMessage());
             username.setText(ex.getMessage());
