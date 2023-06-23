@@ -33,10 +33,16 @@ public class DatabaseConnector {
     /**
      * Constructor DatabaseConnector.
      * <p>
-     *     Initializes URL of the database.
+     *     Default URL to database.
      * </p>
      */
     public DatabaseConnector() {
+        /*
+        * Change URL if you have an own database.
+        * Pattern: "jdbc:mysql://{host}:{port}/{your database name}";
+        * If your database is on your current machine, use localhost as host
+        * Port 3306 is the default port for MySQL.
+        */
         this.url = "jdbc:mysql://db4free.net:3306/finances";
     }
 
@@ -50,14 +56,18 @@ public class DatabaseConnector {
      * @throws ConnectionFailedException if connection fails.
      */
     public Connection connect() throws ConnectionFailedException {
-        String password = "R8EMJurt02Huitjajpv9";
-        String username = "project_dev";
+        /*
+        * Change the password and the username with your own credentials.
+        * NOTE: Always use strong passwords for more security.
+        */
+        String password = "";
+        String username = "";
         System.out.println("(~) INFO: Connecting to MySQL database.");
         try {
             connection = DriverManager.getConnection(url, username, password);
             return connection;
         } catch (SQLException e) {
-            throw new ConnectionFailedException("Connection to Database finances failed. \n", e.getCause());
+            throw new ConnectionFailedException("Connection to database failed. \n", e.getCause());
         }
     }
 

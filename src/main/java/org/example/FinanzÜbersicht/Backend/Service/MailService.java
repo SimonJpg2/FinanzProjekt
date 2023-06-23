@@ -20,11 +20,22 @@ import static javax.mail.Transport.*;
  * @version 1.0
  */
 
+/*
+ * -------------------------------------------------------------------------------------------------------------------
+ * Information to use E-Mail verification with an own E-Mail address:
+ *
+ * Replace the username with your own E-Mail-Address.
+ * Replace the password with the password of your E-Mail.
+ *
+ * If you encounter problems using gmail, see the README.md file of this project.
+ * -------------------------------------------------------------------------------------------------------------------
+ */
+
 public class MailService {
     private Session session;
     private String code = "";
-    private final String username = "Notenuebersicht.Verify@gmail.com";
-    private final String password = "rwjzebvpditpyrxu";
+    private final String username = "";
+    private final String password = "";
 
     public MailService() {
         init();
