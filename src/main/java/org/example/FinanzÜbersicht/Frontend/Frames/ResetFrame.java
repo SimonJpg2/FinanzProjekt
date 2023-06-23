@@ -173,8 +173,8 @@ public class ResetFrame extends JFrame {
         if (e.getSource() != jButton1) {
             return;
         }
-        String password1 = new String(jPasswordField1.getPassword());
-        String password2 = new String(jPasswordField2.getPassword());
+        var password1 = new String(jPasswordField1.getPassword());
+        var password2 = new String(jPasswordField2.getPassword());
 
         // check for SQL Injection.
         for (String s : FORBIDDEN) {
