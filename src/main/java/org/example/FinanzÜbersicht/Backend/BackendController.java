@@ -17,49 +17,36 @@ import java.sql.Connection;
  * @version 1.0
  */
 public class BackendController {
-    private final UserService userService;
-    private final FinanzService finanzService;
+    private UserService userService;
+    private FinanzService finanzService;
 
     /**
-     * Constructor BackendController.
+     *  <h3>Constructor BackendController</h3>
      * <p>
      *     Initializes the backend of the application.
      * </p>
+     *
+     * <p>
+     *     If ConnectionFailedException is thrown, services are null.
+     * </p>
      * @param sha256 {@link org.example.FinanzÜbersicht.Backend.Security.SHA256} reference to hash sensible data.
+     * @see org.example.FinanzÜbersicht.Backend.Exceptions.ConnectionFailedException
      */
     public BackendController(SHA256 sha256) {
-        // initialize database connection.
-        Connection databaseConnection = initDatabase();
+        try {
+            // Initialize database connection.
+            Connection databaseConnection = new DatabaseConnector().connect();
+            System.out.println("(+) INFO: Connection to database established.\n(~) INFO: Initializing services.");
 
-        // avoid NullPointerException.
-        if (databaseConnection == null) {
+            // Initialize services.
+            userService = new UserService(databaseConnection, sha256);
+            finanzService = new FinanzService(databaseConnection);
+            System.out.println("(+) INFO: Services initialized successfully.");
+        } catch (ConnectionFailedException e) {
+            System.err.printf("(!) WARNING: %s", e.getMessage());
+            System.err.println("(!) WARNING: Services not initialized.");
             userService = null;
             finanzService = null;
-            System.err.println("(!) WARNING: Services not initialized.");
-            return;
-        }
-        System.out.println("(+) INFO: Connection to database established.\n(~) INFO: Initializing services.");
-        // initialize the services.
-        userService = new UserService(databaseConnection, sha256);
-        finanzService = new FinanzService(databaseConnection);
-        System.out.println("(+) INFO: Services initialized successfully.");
-    }
-
-    /**
-     * Method initDatabase.
-     * <p>
-     *     Initializes connection to database.
-     *     If connection fails, null is returned.
-     * </p>
-     * @return a {@link java.sql.Connection} or null.
-     */
-    private Connection initDatabase() {
-        try {
-            return new DatabaseConnector().connect();
-        } catch (ConnectionFailedException e) {
-            System.err.printf("(!) WARNING: Database initialization failed%n%s", e.getMessage());
-            e.printStackTrace();
-            return null;
         }
     }
 
