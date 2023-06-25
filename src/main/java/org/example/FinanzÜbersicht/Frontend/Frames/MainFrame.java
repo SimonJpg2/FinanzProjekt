@@ -290,7 +290,7 @@ public class MainFrame extends JFrame {
 
         // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < entities.size(); i++) {
             // fill JTable with data.
@@ -363,7 +363,7 @@ public class MainFrame extends JFrame {
 
         // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // current date
         String currentDate = simpleDateFormat.format(new Date(System.currentTimeMillis()));
@@ -398,7 +398,7 @@ public class MainFrame extends JFrame {
      * </p>
      */
     private void removeTableData() {
-        DefaultTableModel defaultTableModel = (DefaultTableModel) jTable1.getModel();
+        var defaultTableModel = (DefaultTableModel) jTable1.getModel();
         if (defaultTableModel.getRowCount() > 0) {
             for (int i = defaultTableModel.getRowCount() - 1; i > -1; i--) {
                 defaultTableModel.removeRow(i);
@@ -442,7 +442,7 @@ public class MainFrame extends JFrame {
             System.out.println("(+) INFO: Item of JComboBox changed to \"Heute\".");
         }
         // Fire Event that data of JTable changed.
-        AbstractTableModel abstractTableModel = (AbstractTableModel) jTable1.getModel();
+        var abstractTableModel = (AbstractTableModel) jTable1.getModel();
         abstractTableModel.fireTableDataChanged();
     }
 
@@ -515,7 +515,7 @@ public class MainFrame extends JFrame {
         }
 
         try {
-            var id = Integer.parseInt(jTextField4.getText());
+            int id = Integer.parseInt(jTextField4.getText());
             backendController.getFinanzService().delete(id);
         } catch (NumberFormatException ex) {
             jTextField4.setText("Format: 1");
