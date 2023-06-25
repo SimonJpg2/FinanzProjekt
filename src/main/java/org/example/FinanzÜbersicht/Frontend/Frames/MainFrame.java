@@ -42,13 +42,13 @@ public class MainFrame extends JFrame {
     private JTextField jTextField3;
     private JTextField jTextField4;
     private DefaultTableModel tableModel;
-    private final BackendController backendController;
+    private final FinanzService finanzService;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame(BackendController backendController) {
-        this.backendController = backendController;
+        this.finanzService = backendController.getFinanzService();
         initComponents();
         appendEntities();
         System.out.println("(+) INFO: MainFrame initialized successfully.");
@@ -279,16 +279,13 @@ public class MainFrame extends JFrame {
      */
     private void appendEntities() {
         // avoid NullPointerException.
-        if (backendController.getFinanzService() == null) {
+        if (finanzService == null) {
             System.err.println("(!) ERROR: Displaying data failed because finanzService is not initialized.");
             return;
         }
 
-        // get references for service and entities.
-        FinanzService service = backendController.getFinanzService();
-        List<FinanzEntity> entities = service.select();
+        List<FinanzEntity> entities = finanzService.select();
 
-        // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
         var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -314,17 +311,13 @@ public class MainFrame extends JFrame {
 
     private void appendEntitiesOfMonth() {
         // avoid NullPointerException.
-        if (backendController.getFinanzService() == null) {
+        if (finanzService == null) {
             System.err.println("(!) ERROR: Displaying data failed because finanzService is not initialized.");
             return;
         }
 
-        // current Month
         int currentMonth = new Date(System.currentTimeMillis()).getMonth();
-
-        // get references for service and entities.
-        FinanzService service = backendController.getFinanzService();
-        List<FinanzEntity> entitiesOfDB = service.select();
+        List<FinanzEntity> entitiesOfDB = finanzService.select();
 
         List<FinanzEntity> entities = entitiesOfDB
                 .stream()
@@ -333,7 +326,7 @@ public class MainFrame extends JFrame {
 
         // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (FinanzEntity entity : entities) {
             // fill JTable with data.
@@ -356,21 +349,16 @@ public class MainFrame extends JFrame {
      */
     private void appendEntitiesOfToday() {
         // avoid NullPointerException.
-        if (backendController.getFinanzService() == null) {
+        if (finanzService == null) {
             System.err.println("(!) ERROR: Displaying data failed because finanzService is not initialized.");
             return;
         }
 
-        // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
         var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        // current date
         String currentDate = simpleDateFormat.format(new Date(System.currentTimeMillis()));
-
-        // get references for service and entities.
-        FinanzService service = backendController.getFinanzService();
-        List<FinanzEntity> entitiesOfDB = service.select();
+        List<FinanzEntity> entitiesOfDB = finanzService.select();
 
         List<FinanzEntity> entities = entitiesOfDB
                 .stream()
@@ -462,7 +450,7 @@ public class MainFrame extends JFrame {
         // create new entry on database
         try {
             double valueToAdd = Double.parseDouble(jTextField1.getText());
-            backendController.getFinanzService().create(new FinanzEntity(valueToAdd));
+            finanzService.create(new FinanzEntity(valueToAdd));
         } catch (NumberFormatException ex) {
             jTextField1.setText("Format: 100.50");
             System.err.println("(!) WARNING: Incorrect format used.");
@@ -489,7 +477,7 @@ public class MainFrame extends JFrame {
         try {
             int id = Integer.parseInt(jTextField2.getText());
             double value = Double.parseDouble(jTextField3.getText());
-            backendController.getFinanzService().update(id, new FinanzEntity(value));
+            finanzService.update(id, new FinanzEntity(value));
         } catch (NumberFormatException ex) {
             jTextField2.setText("Format: 1");
             jTextField3.setText("Format: 100.50");
@@ -516,7 +504,7 @@ public class MainFrame extends JFrame {
 
         try {
             int id = Integer.parseInt(jTextField4.getText());
-            backendController.getFinanzService().delete(id);
+            finanzService.delete(id);
         } catch (NumberFormatException ex) {
             jTextField4.setText("Format: 1");
             System.err.println("(!) WARNING: Incorrect format used.");
