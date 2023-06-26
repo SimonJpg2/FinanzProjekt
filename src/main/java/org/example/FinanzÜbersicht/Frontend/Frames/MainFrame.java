@@ -17,6 +17,7 @@ import java.util.List;
 
 import static java.awt.Font.*;
 import static java.lang.Short.*;
+import static java.lang.System.currentTimeMillis;
 import static javax.swing.GroupLayout.*;
 import static javax.swing.GroupLayout.Alignment.*;
 import static javax.swing.LayoutStyle.ComponentPlacement.*;
@@ -295,9 +296,7 @@ public class MainFrame extends JFrame {
                     entities.get(i).getId(),
                     simpleDateFormat.format(entities.get(i).getDate()),
                     entities.get(i).getValue(),
-                    entities.stream()
-                            .mapToDouble(FinanzEntity::getValue)
-                            .sum() // Java stream to calculate current budget.
+                    calcBudget(entities)
             });
         }
     }
@@ -308,7 +307,6 @@ public class MainFrame extends JFrame {
      *     Appends data of the last month to the JTable.
      * </p>
      */
-
     private void appendEntitiesOfMonth() {
         // avoid NullPointerException.
         if (finanzService == null) {
@@ -316,7 +314,7 @@ public class MainFrame extends JFrame {
             return;
         }
 
-        int currentMonth = new Date(System.currentTimeMillis()).getMonth();
+        int currentMonth = new Date(currentTimeMillis()).getMonth();
         List<FinanzEntity> entitiesOfDB = finanzService.select();
 
         List<FinanzEntity> entities = entitiesOfDB
@@ -334,9 +332,7 @@ public class MainFrame extends JFrame {
                     entity.getId(),
                     simpleDateFormat.format(entity.getDate()),
                     entity.getValue(),
-                    entitiesOfDB.stream()
-                                .mapToDouble(FinanzEntity::getValue)
-                                .sum() // Java stream to calculate current budget.
+                    calcBudget(entitiesOfDB)
             });
         }
     }
@@ -357,7 +353,7 @@ public class MainFrame extends JFrame {
         tableModel = (DefaultTableModel) jTable1.getModel();
         var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        String currentDate = simpleDateFormat.format(new Date(System.currentTimeMillis()));
+        String currentDate = simpleDateFormat.format(new Date(currentTimeMillis()));
         List<FinanzEntity> entitiesOfDB = finanzService.select();
 
         List<FinanzEntity> entities = entitiesOfDB
@@ -371,9 +367,7 @@ public class MainFrame extends JFrame {
                     entity.getId(),
                     simpleDateFormat.format(entity.getDate()),
                     entity.getValue(),
-                    entitiesOfDB.stream()
-                                .mapToDouble(FinanzEntity::getValue)
-                                .sum() // Java stream to calculate current budget.
+                    calcBudget(entitiesOfDB)
             });
         }
     }
@@ -393,6 +387,22 @@ public class MainFrame extends JFrame {
             }
         }
         System.out.println("(+) INFO: Table data removed");
+    }
+
+    /**
+     * Method calcBudget.
+     *
+     * <p>
+     *     Calculates available budget using Java Streams.
+     * </p>
+     * @param entities entities to sum the value of.
+     * @return the budget.
+     */
+    private double calcBudget(List<FinanzEntity> entities) {
+        return entities
+                .stream()
+                .mapToDouble(FinanzEntity::getValue)
+                .sum();
     }
 
     /**
