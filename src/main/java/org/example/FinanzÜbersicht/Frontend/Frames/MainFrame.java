@@ -44,6 +44,7 @@ public class MainFrame extends JFrame {
     private JTextField jTextField3;
     private JTextField jTextField4;
     private DefaultTableModel tableModel;
+    private final SimpleDateFormat simpleDateFormat;
     private final FinanzService finanzService;
 
     /**
@@ -51,6 +52,7 @@ public class MainFrame extends JFrame {
      */
     public MainFrame(BackendController backendController) {
         this.finanzService = backendController.getFinanzService();
+        this.simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         initComponents();
         appendEntities();
         System.out.println("(+) INFO: MainFrame initialized successfully.");
@@ -293,9 +295,7 @@ public class MainFrame extends JFrame {
         }
 
         List<FinanzEntity> entities = finanzService.select();
-
         tableModel = (DefaultTableModel) jTable1.getModel();
-        var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < entities.size(); i++) {
             // fill JTable with data.
@@ -329,9 +329,7 @@ public class MainFrame extends JFrame {
                 .filter(e -> currentMonth - e.getDate().getMonth() < 2)
                 .toList(); // Java stream to filter the last month.
 
-        // get table model and date formatter.
         tableModel = (DefaultTableModel) jTable1.getModel();
-        var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (FinanzEntity entity : entities) {
             // fill JTable with data.
@@ -358,7 +356,6 @@ public class MainFrame extends JFrame {
         }
 
         tableModel = (DefaultTableModel) jTable1.getModel();
-        var simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String currentDate = simpleDateFormat.format(new Date(currentTimeMillis()));
         List<FinanzEntity> entitiesOfDB = finanzService.select();
