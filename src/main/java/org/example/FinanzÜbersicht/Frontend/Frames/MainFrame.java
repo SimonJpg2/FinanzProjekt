@@ -6,6 +6,7 @@ import org.example.FinanzÜbersicht.Backend.Service.FinanzService;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
@@ -142,6 +143,12 @@ public class MainFrame extends JFrame {
 
         // disallow table reordering.
         jTable1.getTableHeader().setReorderingAllowed(false);
+        var cellRenderer = new DefaultTableCellRenderer();
+
+        // set column alignment to left
+        cellRenderer.setHorizontalAlignment(JLabel.LEFT);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new Font("Arial", BOLD, 14)); // NOI18N
