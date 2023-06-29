@@ -269,6 +269,7 @@ public class VerificationFrame extends JFrame {
             System.out.println("(~) INFO: Initializing ResetFrame.");
             new ResetFrame(userService).setVisible(true);
             dispose();
+            return;
         }
         System.err.println("(!) WARNING: Token not equal with generated token.");
     }
