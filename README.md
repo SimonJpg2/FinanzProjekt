@@ -16,18 +16,29 @@ Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für d
 <h3>JFrame für Login</h3>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/SignIn.PNG" /></p>
 
+
 <h3>JFrame für Verifizierung</h3>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/Verification.PNG" /></p>
+
+Für den Fall, dass das Passwort für den Account vergessen wurde, kann man mit Hilfe des Verifizierungs-Frames 
+das Passwort ändern.
 
 <h3>Hauptfenster<h3/>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/MainFrame.PNG" /></p>
 
+Die Finanzübersicht ist tabellarisch in dem Hauptfenster dargestellt. 
+
+Es ist möglich, Einträge hinzuzufügen, zu bearbeiten oder zu löschen. 
+
+Die Einträge können komplett, für den letzten Monat oder den aktuellen Tag angezeigt werden.
 ****
+
 ## Inhaltsverzeichnis
 1. Projektbeschreibung
 2. Inhaltsverzeichnis
 3. Installationsanleitung
-4. Technologies
+4. Bekannte Fehler
+5. Technologies
 ****
 
 ## Leitfaden für die Installation unter Windows:
@@ -113,6 +124,8 @@ Nun wird die Datenbank finances konfiguriert. Folgende Befehle sind auszuführen
 `CREATE TABLE User(id int(3) AUTO_INCREMENT, benutzer_name varchar(255), email varchar(255), password varchar(255), PRIMARY KEY (id));`
 
 Um eine Datenbankverbindung aufbauen zu können, müssen die Zugangsdaten der Datenbank in der Klasse DatabaseConnector.java angepasst werden.
+
+Um die Verifizierungsmail verwenden zu können, müssen die Zugangsdaten für einen E-Mail-Account in der Klasse MailService angepasst werden.
 
 Ebenfalls muss die URL zu der Datenbank um den Datenbanknamen erweitert werden.
 
