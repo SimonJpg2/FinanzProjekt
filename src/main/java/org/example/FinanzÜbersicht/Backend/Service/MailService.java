@@ -48,7 +48,7 @@ public class MailService {
      * </p>
      */
     private void init() {
-        Properties properties = new Properties();
+        var properties = new Properties();
         properties.put("mail.smtp.auth", "true"); // enable authentication
         properties.put("mail.smtp.starttls.enable", "true"); // enable tls
         properties.put("mail.smtp.host", "smtp.gmail.com"); // set smtp host
