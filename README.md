@@ -3,7 +3,11 @@
 Diese Anwendung ist im Rahmen einer Klausurersatzleistung des Faches Programmieren entstanden.
 Zweck dieses Programmes ist es, einen geordneten Überblick über die eigenen Finanzen zu behalten.
 Für die Umsetzung werden die Benutzerdaten im gehashten Zustand und die Finanzdaten auf einer MySQL Datenbank gespeichert.
-Um die Anwendung verwenden zu können, muss eine MySQL Datenbank installiert sein oder die URL und das Password in der entsprechenden Klasse geändert werden.
+Um die Anwendung verwenden zu können, muss eine MySQL Datenbank installiert sein oder die URL zu einer bereits vorhandenen Datenbank
+in der jeweiligen Klasse geändert werden. Zudem muss das Passwort und der Benutzername in der entsprechenden Klasse geändert werden.
+
+Eine hinreichende Erklärung ist in der Installationsanleitung des jeweiligen Betriebssystems zu finden.
+
 Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für die Verifizierung einer Zugriffserlaubnis.
 
 <h3>JFrame für Registrierung<h3/>
@@ -12,18 +16,29 @@ Nach dem Start der Anwendung öffnet sich eine Login/Registrierungsmaske, für d
 <h3>JFrame für Login</h3>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/SignIn.PNG" /></p>
 
+
 <h3>JFrame für Verifizierung</h3>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/Verification.PNG" /></p>
+
+Für den Fall, dass das Passwort für den Account vergessen wurde, kann man mit Hilfe des Verifizierungs-Frames 
+das Passwort ändern.
 
 <h3>Hauptfenster<h3/>
 <p><img align="center" src="https://github.com/SimonJpg2/FinanzProjekt/blob/master/src/main/resources/MainFrame.PNG" /></p>
 
+Die Finanzübersicht ist tabellarisch in dem Hauptfenster dargestellt. 
+
+Es ist möglich, Einträge hinzuzufügen, zu bearbeiten oder zu löschen. 
+
+Die Einträge können komplett, für den letzten Monat oder den aktuellen Tag angezeigt werden.
 ****
+
 ## Inhaltsverzeichnis
 1. Projektbeschreibung
 2. Inhaltsverzeichnis
 3. Installationsanleitung
-4. Technologies
+4. Bekannte Fehler
+5. Technologies
 ****
 
 ## Leitfaden für die Installation unter Windows:
@@ -43,8 +58,6 @@ Folgende Informationen sind notwendig für die Installation:
 
 Verwendeter Port : 3306
 
-Es ist erforderlich die Informationen in der Klasse 
-org.example.FinanzÜbersicht.Backend.Database.DatabaseConnector zu ersetzen.
 ### Schritt 3:
 
 Nachdem die Installation erfolgreich abgeschlossen wurde, muss eine neue Datenbank namens "finances" angelegt werden.
@@ -56,15 +69,26 @@ Das Standardverzeichnis ist: C:\Program Files\MySQL\MySQL-Server\bin\
 Command : `mysql.exe -u root -p`
 
 Bei erfolgreichem Login wird folgende Query ausgeführt:
+
 `CREATE DATABASE finances;`
 
 `USE finances;`
 
 Nun wird die Datenbank finances konfiguriert. Folgende Befehle sind auszuführen:
-`CREATE TABLE Finanzen(id int(3) AUTO_INCREMENT, date DATE, value int(3), PRIMARY KEY (id))`
-`CREATE TABLE User(id int(3) AUTO_INCREMENT, benutzer_name varchar(255), email varchar(255), password varchar(255), PRIMARY KEY (id))`
+
+`CREATE TABLE Finanzen(id int(3) AUTO_INCREMENT, date DATE, value int(3), PRIMARY KEY (id));`
+
+`CREATE TABLE User(id int(3) AUTO_INCREMENT, benutzer_name varchar(255), email varchar(255), password varchar(255), PRIMARY KEY (id));`
+
+Um eine Datenbankverbindung aufbauen zu können, müssen die Zugangsdaten der Datenbank in der Klasse DatabaseConnector.java angepasst werden.
 
 Um die Verifizierungsmail verwenden zu können, müssen die Zugangsdaten für einen E-Mail-Account in der Klasse MailService angepasst werden.
+
+Ebenfalls muss die URL zu der Datenbank um den Datenbanknamen erweitert werden.
+
+Beispiel:
+
+URL: `jdbc:mysql://localhost:3306/{DATENBANK}` ("{DATENBANK}" mit dem Datenbanknamen ersetzen)
 
 Bei Erfolg sind die Vorbereitungen abgeschlossen und die Anwendung kann gestartet werden.
 
@@ -78,9 +102,6 @@ Zunächst werden die Paketquellen aktualisiert und der MySQL Server aus den Pake
 `sudo apt update && sudo apt upgrade`
 
 `sudo apt install mysql-server -y`
-
-Nach erfolgreicher Installation müssen in der Klasse DatabaseConnector das Passwort und der
-Benutzername ersetzt werden.
 
 ### Schritt 2:
 
@@ -97,19 +118,35 @@ Bei erfolgreichem Login wird folgende Query ausgeführt:
 `USE finances;`
 
 Nun wird die Datenbank finances konfiguriert. Folgende Befehle sind auszuführen:
-`CREATE TABLE Finanzen(id int(3) AUTO_INCREMENT, date DATE, value int(3), PRIMARY KEY (id))`
 
-`CREATE TABLE User(id int(3) AUTO_INCREMENT, benutzer_name varchar(255), email varchar(255), password varchar(255), PRIMARY KEY (id))`
+`CREATE TABLE Finanzen(id int(3) AUTO_INCREMENT, date DATE, value int(3), PRIMARY KEY (id));`
+
+`CREATE TABLE User(id int(3) AUTO_INCREMENT, benutzer_name varchar(255), email varchar(255), password varchar(255), PRIMARY KEY (id));`
+
+Um eine Datenbankverbindung aufbauen zu können, müssen die Zugangsdaten der Datenbank in der Klasse DatabaseConnector.java angepasst werden.
+
+Um die Verifizierungsmail verwenden zu können, müssen die Zugangsdaten für einen E-Mail-Account in der Klasse MailService angepasst werden.
+
+Ebenfalls muss die URL zu der Datenbank um den Datenbanknamen erweitert werden.
+
+Beispiel:
+
+URL: `jdbc:mysql://localhost:3306/{DATENBANK}` "{DATENBANK}" mit dem Datenbanknamen ersetzen)
 
 Bei Erfolg sind die Vorbereitungen abgeschlossen und die Anwendung kann gestartet werden.
 
 ****
 ## Alternativen
 Für den Fall, dass die Datenbank nicht lokal laufen soll, ist die IPv4 Adresse und der konfigurierte Port in der Klasse DatabaseConnector einzutragen.
+
+Beispiel URL:
+
+`jdbc:mysql://{IP}:{PORT}/{DATENBANK}`
 ****
 ## Bekannte Fehler und dessen Behebung:
 
 Wenn der MySQL Server bei Systemstart nicht gestartet wird und eine Verbindung demnach nicht möglich ist, kann dieser manuell gestartet werden.
+
 Hierbei wird die Anwendung `Services` über die Ausführen-Funktion gestartet.
 
 In dem Fenster wird der Prozess `MySQL80` gesucht und angeklickt.
