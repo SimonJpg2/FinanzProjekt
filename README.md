@@ -131,7 +131,7 @@ Ebenfalls muss die URL zu der Datenbank um den Datenbanknamen erweitert werden.
 
 Beispiel:
 
-URL: `jdbc:mysql://localhost:3306/{DATENBANK}` "{DATENBANK}" mit dem Datenbanknamen ersetzen)
+URL: `jdbc:mysql://localhost:3306/{DATENBANK}` ("{DATENBANK}" mit dem Datenbanknamen ersetzen)
 
 Bei Erfolg sind die Vorbereitungen abgeschlossen und die Anwendung kann gestartet werden.
 
